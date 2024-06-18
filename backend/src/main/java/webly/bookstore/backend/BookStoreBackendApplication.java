@@ -1,13 +1,13 @@
-package com.webly.book_network;
+package webly.bookstore.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BookNetworkApiApplication {
+public class BookStoreBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BookNetworkApiApplication.class, args);
+		SpringApplication.run(BookStoreBackendApplication.class, args);
 	}
 
 }

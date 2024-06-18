@@ -1,10 +1,10 @@
-package com.webly.book_network;
+package webly.bookstore.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BookNetworkApiApplicationTests {
+class BookStoreBackendApplicationTests {
 
 	@Test
 	void contextLoads() {

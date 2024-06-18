@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  spring-app:
+    build:
+      context: .
+      dockerfile: spring.dockerfile
+
+    container_name: spring-rest-api
+
+    restart: always
+
+    ports:
+      - '8000:8000'
+
+    depends_on:
+      - localhost
+
+  postgres-db:
+    image: 'postgres:15-alpine'
+
+    restart: always
+
+    container_name: postgres-15
+
+    environment:
+      - POSTGRES_USER=prabh
+      - POSTGRES_PASSWORD=webly
+      - POSTGRES_DB=bookstore
+
+    ports:
+      - '5432:5432'
+
+    volumes:
+      - 'db:/var/lib/postgresql/data'
+
+volumes:
+  db: null
