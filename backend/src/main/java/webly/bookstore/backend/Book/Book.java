@@ -44,7 +44,6 @@ public class Book extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "title", nullable = false)
     @NotNull(message = "Title must be specified.")
     private String title;
