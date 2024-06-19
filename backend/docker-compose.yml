@@ -22,8 +22,8 @@ services:
     container_name: postgres-15
 
     environment:
-      - POSTGRES_USER=prabh
-      - POSTGRES_PASSWORD=webly
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=bre_ad%4321
       - POSTGRES_DB=bookstore
 
     ports:

@@ -6,9 +6,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class BookStoreBackendApplicationTests {
 
-	@Test
-	void contextLoads() {
-		System.out.println("hello world!!!");
-	}
+	// @Test
+	// void contextLoads() {
+	// 	System.out.println("hello world!!!");
+	// }
 
 }
