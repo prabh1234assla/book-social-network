@@ -12,8 +12,8 @@ import com.github.fge.jsonpatch.JsonPatch;
 import com.github.fge.jsonpatch.JsonPatchException;
 
 import jakarta.persistence.EntityNotFoundException;
-import webly.bookstore.backend.Book.Book;
-import webly.bookstore.backend.Book.BookModel;
+import webly.bookstore.backend.Models.Book;
+import webly.bookstore.backend.Models.BookModel;
 import webly.bookstore.backend.Repository.BookRepository;
 
 @Service
@@ -26,10 +26,14 @@ public class BookService {
 
     public Book create(BookModel book){
         var bookToSave = Book.builder()
-                            .category(book.getCategory())
-                            .description(book.getDescription())
+                            .author(book.getAuthor())
+                            .country(book.getCountry())
+                            .imageLink(book.getImageLink())
+                            .language(book.getLanguage())
+                            .link(book.getLink())
+                            .pages(book.getPages())
                             .title(book.getTitle())
-                            .price(book.getPrice())
+                            .year(book.getYear())
                             .build();
         
         return repository.save(bookToSave);
@@ -47,11 +51,17 @@ public class BookService {
         if(repository.findById(id).isEmpty())
             throw new EntityNotFoundException();
 
+
         Book bookToUpdate = repository.getReferenceById(id);
+        
+        bookToUpdate.setAuthor(book.getAuthor());
+        bookToUpdate.setCountry(book.getCountry());
+        bookToUpdate.setImageLink(book.getImageLink());
+        bookToUpdate.setLanguage(book.getLanguage());
+        bookToUpdate.setLink(book.getLink());
+        bookToUpdate.setPages(book.getPages());
         bookToUpdate.setTitle(book.getTitle());
-        bookToUpdate.setDescription(book.getDescription());
-        bookToUpdate.setPrice(book.getPrice());
-        bookToUpdate.setPrice(book.getPrice());
+        bookToUpdate.setYear(book.getYear());
 
         repository.save(bookToUpdate);
     }

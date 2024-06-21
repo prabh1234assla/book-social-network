@@ -5,20 +5,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import jakarta.transaction.Transactional;
+import webly.bookstore.backend.Models.Book;
+import webly.bookstore.backend.Models.BookModel;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-
-import webly.bookstore.backend.Book.Book;
-import webly.bookstore.backend.Book.BookModel;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE book SET title = ?1, description = ?2, category = ?3, price = ?4 WHERE id = ?5", nativeQuery = true)
+    @Query(value = "UPDATE book SET author = ?1, country = ?2, imageLink = ?3, language = ?4, link = ?5, pages = ?6, title = ?7, year = ?8 WHERE id = ?9", nativeQuery = true)
     void updateById(@PathVariable("id") int id, @RequestBody BookModel book);
 
 }

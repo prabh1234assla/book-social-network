@@ -1,5 +1,7 @@
 package webly.bookstore.backend.Controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,65 +18,62 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.fge.jsonpatch.JsonPatch;
 
-import webly.bookstore.backend.Models.Book;
-import webly.bookstore.backend.Models.BookModel;
-import webly.bookstore.backend.Service.BookService;
+import webly.bookstore.backend.Models.User;
+import webly.bookstore.backend.Models.UserModel;
+import webly.bookstore.backend.Service.UserService;
 
-import java.util.List;
 
 @RestController
-@RequestMapping("/book")
-public class BookController {
+@RequestMapping("/user")
+public class UserController {
+    private final UserService service;
 
-    private final BookService service;
-
-    public BookController(BookService service){
+    public UserController(UserService service){
         this.service = service;
     }
 
-    // create book
+    // create user
     @PostMapping("/")
-    public ResponseEntity<Book> createBook(@RequestBody BookModel book){
-        return new ResponseEntity<>(service.create(book), HttpStatus.CREATED);
+    public ResponseEntity<User> createUser(@RequestBody UserModel user){
+        return new ResponseEntity<>(service.create(user), HttpStatus.CREATED);
     }
 
-    // get all books
+    // get all users
     @GetMapping()
-    public ResponseEntity<List <Book>> getAllBooks(){
+    public ResponseEntity<List <User>> getAllUsers(){
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
-    // get book with specific id
+    // get user with specific id
     @GetMapping("/{id}")
-    public ResponseEntity<Book> getOneBook(@PathVariable("id") int id){
+    public ResponseEntity<User> getOneUser(@PathVariable("id") int id){
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
-    // update a book with specific id
+    // update a user with specific id
     @PutMapping("/update/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void updateOneBook(@PathVariable("id") int id, @RequestBody BookModel book){
+    public void updateOneUser(@PathVariable("id") int id, @RequestBody UserModel book){
         service.updateOne(id, book);
     }
 
-    // update specific info of book with a specific id
+    // update specific info of user with a specific id
     @PatchMapping(value = "/update/{id}",  consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Book> patchOneBook(@PathVariable("id") int id, @RequestBody JsonPatch patch){
+    public ResponseEntity<User> patchOneUser(@PathVariable("id") int id, @RequestBody JsonPatch patch){
         return new ResponseEntity<>(service.patchOne(id, patch), HttpStatus.OK);
     }
 
-    // delete book with specific id
+    // delete user with specific id
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteOneBook(@PathVariable("id") int id){
+    public void deleteOneUser(@PathVariable("id") int id){
         service.deleteById(id);
     }
 
-    // delete all books
+    // delete all users
     @DeleteMapping()
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteAllBooks(){
+    public void deleteAllUsers(){
         service.deleteAll();
     }
-
 }

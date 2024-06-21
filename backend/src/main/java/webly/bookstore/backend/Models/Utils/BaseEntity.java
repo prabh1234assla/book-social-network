@@ -1,4 +1,4 @@
-package webly.bookstore.backend.Utils;
+package webly.bookstore.backend.Models.Utils;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -19,4 +19,5 @@ public class BaseEntity implements Serializable {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+    
 }

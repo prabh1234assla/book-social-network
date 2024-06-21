@@ -1,10 +1,5 @@
-package webly.bookstore.backend.Book;
+package webly.bookstore.backend.Models;
 
-import webly.bookstore.backend.Utils.BaseEntity;
-
-import java.math.BigDecimal;
-
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import jakarta.persistence.Column;
@@ -18,15 +13,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-enum Category{
-    NA,
-    FICTION,
-    HORROR,
-    POETRY,
-    SCI_FI,
-    FANTASY,
-}
+import webly.bookstore.backend.Models.Utils.BaseEntity;
 
 @Getter
 @Setter
@@ -42,18 +29,30 @@ public class Book extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
+    @Column(name = "author", nullable = false)
+    @NotNull(message = "Author must be specified.")
+    private String author;
+
+    @Column(name = "country")
+    private String country;
+
+    @Column(name = "imageLink")
+    private String imageLink;
+
+    @Column(name = "language")
+    private String language;
+
+    @Column(name = "link")
+    private String link;
+
+    @Column(name = "pages")
+    private Integer pages;
+
     @Column(name = "title", nullable = false)
     @NotNull(message = "Title must be specified.")
     private String title;
 
-    @Column(name = "description")
-    private String description = "NA";
-
-    @Column(name = "category")
-    private Category category = Category.NA;
-
-    @Min(0)
-    @Column(name = "price", columnDefinition = "decimal (10, 2)")
-    private BigDecimal price;
+    @Column(name = "year")
+    private Integer year;
     
 }
