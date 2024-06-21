@@ -30,7 +30,7 @@ public class AuthenticationService {
 
     public User Signup(RegisterDTO registerDTO){
 
-        var registeredUser = User.builder().
+        User registeredUser = User.builder().
                                     role(UserRole.USER).
                                     email(registerDTO.getEmail()).
                                     username(registerDTO.getUsername()).

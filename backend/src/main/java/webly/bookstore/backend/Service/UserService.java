@@ -25,7 +25,7 @@ public class UserService {
     }
 
     public User create(UserModel user){
-        var userToSave = User.builder()
+        User userToSave = User.builder()
                             .role(user.getRole())
                             .username(user.getUsername())
                             .email(user.getEmail())
@@ -58,9 +58,9 @@ public class UserService {
     }
 
     public User patchOne(long id, JsonPatch patch){
-        var user = repository.findById(id).orElseThrow(EntityNotFoundException::new);
+        User user = repository.findById(id).orElseThrow(EntityNotFoundException::new);
 
-        var userPatched = applyPatchToUser(patch, user);
+        User userPatched = applyPatchToUser(patch, user);
 
         return repository.save(userPatched);
     }
@@ -75,7 +75,7 @@ public class UserService {
 
     private User applyPatchToUser(JsonPatch patch, User user){
         try{
-            var objectMapper = new ObjectMapper();
+            ObjectMapper objectMapper = new ObjectMapper();
             JsonNode patched = patch.apply(objectMapper.convertValue(user, JsonNode.class));
             return objectMapper.treeToValue(patched, User.class);
         }catch( JsonPatchException | JsonProcessingException e){

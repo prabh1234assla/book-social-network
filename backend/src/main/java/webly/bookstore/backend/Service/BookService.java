@@ -25,7 +25,7 @@ public class BookService {
     }
 
     public Book create(BookModel book){
-        var bookToSave = Book.builder()
+        Book bookToSave = Book.builder()
                             .author(book.getAuthor())
                             .country(book.getCountry())
                             .imageLink(book.getImageLink())
@@ -67,9 +67,9 @@ public class BookService {
     }
 
     public Book patchOne(long id, JsonPatch patch){
-        var book = repository.findById(id).orElseThrow(EntityNotFoundException::new);
+        Book book = repository.findById(id).orElseThrow(EntityNotFoundException::new);
 
-        var bookPatched = applyPatchToBook(patch, book);
+        Book bookPatched = applyPatchToBook(patch, book);
 
         return repository.save(bookPatched);
     }
@@ -84,7 +84,7 @@ public class BookService {
 
     private Book applyPatchToBook(JsonPatch patch, Book book){
         try{
-            var objectMapper = new ObjectMapper();
+            ObjectMapper objectMapper = new ObjectMapper();
             JsonNode patched = patch.apply(objectMapper.convertValue(book, JsonNode.class));
             return objectMapper.treeToValue(patched, Book.class);
         }catch( JsonPatchException | JsonProcessingException e){
