@@ -22,11 +22,6 @@ import webly.bookstore.backend.Models.Utils.BaseEntity;
 import java.util.Collection;
 import java.util.List;
 
-enum Role{
-    ADMIN,
-    USER
-}
-
 @Getter
 @Setter
 @Entity
@@ -35,7 +30,7 @@ enum Role{
 @NoArgsConstructor
 @Table(name = "User")
 public class User extends BaseEntity implements UserDetails {
-    
+
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -43,7 +38,7 @@ public class User extends BaseEntity implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
-    private Role role;
+    private UserRole role;
 
     @Column(name = "username", nullable = false)
     @NotNull(message = "Username must be specified.")

@@ -5,7 +5,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import webly.bookstore.backend.DTOs.LogindDTO;
+import webly.bookstore.backend.DTOs.RegisterDTO;
 import webly.bookstore.backend.Models.User;
+import webly.bookstore.backend.Models.UserRole;
 import webly.bookstore.backend.Repository.UserRepository;
 
 @Service
@@ -25,15 +28,24 @@ public class AuthenticationService {
         this.authenticationManager = authenticationManager;
     }
 
-    public User Signup(User user){
-        return userRepository.save(user);                 
+    public User Signup(RegisterDTO registerDTO){
+
+        var registeredUser = User.builder().
+                                    role(UserRole.USER).
+                                    email(registerDTO.getEmail()).
+                                    username(registerDTO.getUsername()).
+                                    password(registerDTO.getPassword()).
+                                    build();                                    
+
+        return userRepository.save(registeredUser);
+
     }
 
-    public User Authenticate(User user){
+    public User Authenticate(LogindDTO logindDTO){
         authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
+            new UsernamePasswordAuthenticationToken(logindDTO.getEmail(), logindDTO.getPassword())
         );
 
-        return userRepository.findByEmail(user.getEmail()).orElseThrow();
+        return userRepository.findByEmail(logindDTO.getEmail()).orElseThrow();
     }
 }

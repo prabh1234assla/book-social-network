@@ -16,6 +16,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
+
 @Service
 public class JwtService {
 
@@ -25,6 +26,9 @@ public class JwtService {
     @Value("${security.jwt.expiration-time}")
     private long jwtExpiration;
 
+    public long getJwtExpiration(){
+        return this.jwtExpiration;
+    }
 
     public String extractUsername(String token){
         return extractClaim(token, Claims::getSubject);

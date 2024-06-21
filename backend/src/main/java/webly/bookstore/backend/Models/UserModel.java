@@ -9,7 +9,7 @@ import lombok.Getter;
 public class UserModel {
 
     private long id;
-    private Role role;
+    private UserRole role;
     private String username;
     private String email;
     private String password;
