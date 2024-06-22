@@ -21,5 +21,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "UPDATE book SET role = ?1, username = ?2, email = ?3, password = ?4 WHERE id = ?5", nativeQuery = true)
     void updateById(@PathVariable("id") int id, @RequestBody UserModel user);
 
+    @Transactional
     Optional<User> findByEmail(String email);
 }

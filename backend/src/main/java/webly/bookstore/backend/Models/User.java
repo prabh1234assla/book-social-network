@@ -28,7 +28,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "\"User\"")
+@Table(name = "_user")
 public class User extends BaseEntity implements UserDetails {
 
     @Id
