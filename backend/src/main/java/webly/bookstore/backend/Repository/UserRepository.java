@@ -22,5 +22,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     void updateById(@PathVariable("id") int id, @RequestBody UserModel user);
 
     @Transactional
-    Optional<User> findByEmail(String email);
+    Optional<User> findByUsername(String email);
 }

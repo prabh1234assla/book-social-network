@@ -46,13 +46,13 @@ public class AuthenticationService {
     public User Authenticate(LogindDTO logindDTO){
         try{
             authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(logindDTO.getEmail(), logindDTO.getPassword())
+                new UsernamePasswordAuthenticationToken(logindDTO.getUsername(), logindDTO.getPassword())
             );
         } catch (AuthenticationException e){
             System.out.println(e.getMessage());
         }
 
-        return userRepository.findByEmail(logindDTO.getEmail())
+        return userRepository.findByUsername(logindDTO.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found"));
     }
 }
