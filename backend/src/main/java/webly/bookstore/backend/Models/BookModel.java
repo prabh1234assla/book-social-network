@@ -1,5 +1,7 @@
 package webly.bookstore.backend.Models;
 
+import java.util.Set;
+
 import org.springframework.stereotype.Component;
 
 import lombok.Getter;
@@ -17,5 +19,6 @@ public class BookModel {
     private Integer pages;
     private String title;
     private Integer year;
+    private Set<User> users;
 
 }

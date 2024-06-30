@@ -53,6 +53,22 @@ public class UserService {
         userToUpdate.setEmail(user.getEmail());
         userToUpdate.setUsername(user.getUsername());
         userToUpdate.setPassword(user.getPassword());
+        userToUpdate.setBooks(user.getBooks());
+
+        repository.save(userToUpdate);
+    }
+
+    public void updateOne(long id, User user){
+        if(repository.findById(id).isEmpty())
+            throw new EntityNotFoundException();
+
+        User userToUpdate = repository.getReferenceById(id);
+        
+        userToUpdate.setRole(user.getRole());
+        userToUpdate.setEmail(user.getEmail());
+        userToUpdate.setUsername(user.getUsername());
+        userToUpdate.setPassword(user.getPassword());
+        userToUpdate.setBooks(user.getBooks());
 
         repository.save(userToUpdate);
     }

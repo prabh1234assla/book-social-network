@@ -1,5 +1,7 @@
 package webly.bookstore.backend.Models;
 
+import java.util.Set;
+
 import org.springframework.stereotype.Component;
 
 import lombok.Getter;
@@ -13,5 +15,6 @@ public class UserModel {
     private String username;
     private String email;
     private String password;
+    private Set<Book> books;
 
 }

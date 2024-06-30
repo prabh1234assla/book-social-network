@@ -1,6 +1,7 @@
 package webly.bookstore.backend.Controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,8 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.fge.jsonpatch.JsonPatch;
 
+import webly.bookstore.backend.Models.Book;
 import webly.bookstore.backend.Models.User;
 import webly.bookstore.backend.Models.UserModel;
+import webly.bookstore.backend.Service.BookService;
 import webly.bookstore.backend.Service.UserService;
 
 
@@ -29,19 +32,39 @@ import webly.bookstore.backend.Service.UserService;
 @RequestMapping("/user")
 public class UserController {
     private final UserService service;
+    private final BookService bookService;
 
-    public UserController(UserService service){
+    public UserController(UserService service, BookService bookService){
         this.service = service;
+        this.bookService = bookService;
+    }
+
+    private User getAuthenticatedUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        return (User) authentication.getPrincipal();
     }
 
     // get yourself
     @GetMapping("/me")
     public ResponseEntity<User> authenticatedUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        User currentUser = (User) authentication.getPrincipal();
+        User currentUser = getAuthenticatedUser();
 
         return ResponseEntity.ok(currentUser);
+    }
+
+    @PostMapping("/book/{id}")
+    public ResponseEntity<Book> addBook(@PathVariable("id") int id){
+        User currentUser = getAuthenticatedUser();
+
+        Book addedBook = bookService.findById(id);
+
+        Set<Book> listOfBooks = currentUser.getBooks();
+        listOfBooks.add(addedBook);
+
+        service.updateOne(currentUser.getId(), currentUser);
+
+        return ResponseEntity.ok(addedBook);
     }
 
     // create user
