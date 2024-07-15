@@ -20,18 +20,19 @@ for i in range(len(contents)):
     
     res = requests.get(contents[i]['link'][:-1])
     soup = BeautifulSoup(res.text, 'html.parser')
+    info_text = ""
+    size_taken = 0
     
     if(contents[i]['link'][:-1].find('en.wikipedia.org') != -1):
         infobox_data = soup.select("td.infobox-data")
         infobox_labels = soup.select("th.infobox-label")
-        info_text = ""
-        size_taken = 1
-        while(len(info_text.split()) <= 30 and size_taken <= 10):
-            body = [Soup for Soup in soup.select("div.mw-content-ltr.mw-parser-output p") if Soup.text != '\n']
+        body = [Soup for Soup in soup.select("div.mw-content-ltr.mw-parser-output > p") if Soup.text != '\n']
+        
+        while(size_taken < len(body) and len(info_text.split()) <= 60):
             print('@'*100)
             print(body)
             print('$'*100)
-            info_text = ''.join([ss if (ss.startswith('.') or ss.startswith(')') or ss.startswith(',') or ss.startswith(';') ) else ' '+ss for ss in [s for s in body[0].stripped_strings if not(re.search(r'\[([0-9]+)|([a-z]+)\]', s))]])
+            info_text = info_text + ''.join([ss if (ss.startswith('.') or ss.startswith(')') or ss.startswith(',') or ss.startswith(';') ) else ' '+ss for ss in [s for s in body[size_taken].stripped_strings if not(re.search(r'\[([0-9]+)|([a-z]+)\]', s))]])
             size_taken = size_taken + 1  
         
         LabelSet = False
@@ -60,18 +61,16 @@ for i in range(len(contents)):
             contents[i]['genre'] = ['UnKnown']
             contents[i]['labels'] = ['UnKnown']
             
-        contents[i]['information'] = info_text
+        contents[i]['information'] = info_text.strip()
     else:
         print([Soup for Soup in soup.select("div.c-userContent p") if Soup.text != '\n'])
-        info_text = ""
-        size_taken = 1
+        body = [Soup for Soup in soup.select("div.c-userContent > p") if Soup.text != '\n']
         
-        while(len(info_text.split()) <= 30 and size_taken <= 10):
-            body = [Soup for Soup in soup.select("div.c-userContent p") if Soup.text != '\n'][:size_taken]
-            info_text = ''.join([ss if ss.endswith(' ') else ss+' ' for ss in [s for s in body[0].stripped_strings]])
+        while(size_taken < len(body) and len(info_text.split()) <= 60):
+            info_text = info_text + ''.join([ss if ss.endswith(' ') else ss+' ' for ss in [s for s in body[size_taken].stripped_strings]])
             size_taken = size_taken + 1 
 
-        contents[i]['information'] = info_text
+        contents[i]['information'] = info_text.strip()
         contents[i]['genre'] = ['Poetry']
         contents[i]['labels'] = ['poem']
         

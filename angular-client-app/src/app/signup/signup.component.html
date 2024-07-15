@@ -1,0 +1,35 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm)">
+
+    <div>
+        <label>
+            username:
+            <input formControlName="name">
+        </label>
+        <div *ngIf="registerForm.get('name')?.invalid && (registerForm.get('name')?.dirty || registerForm.get('name')?.touched)">
+            provide a username.
+        </div>
+    </div>
+
+    <div>
+        <label>
+            email:
+            <input formControlName="email">
+        </label>       
+        <div *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)">
+            email format wrong.
+        </div>
+    </div>
+
+    <div>
+        <label>
+            password:
+            <input formControlName="password">
+        </label>
+        <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)">
+            provide a password.
+        </div>
+    </div>
+
+    <button type="submit" [disabled]="registerForm.invalid" >signup!</button>
+
+</form>
