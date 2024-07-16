@@ -14,14 +14,13 @@ export class SigninComponent {
 
   ngOnInit(): void {
       this.loginForm =  this.fb.group({
-        name: ["", Validators.required],
-        email: ["", Validators.required, Validators.email],
-        password: ["", Validators.required, Validators.minLength(8), Validators.maxLength(25)]
+        name: ["", [Validators.required, Validators.pattern('^(\-?[a-zA-Z0-9_]+.?)*$')]],
+        password: ["", [Validators.required, Validators.minLength(8), Validators.maxLength(40), Validators.pattern('^[a-zA-Z0-9\!@#$.%^&*_\-]{8,40}$')]]
       });
   }
 
   onSubmit(form: FormGroup){
-    console.log(form?.valid)
+    console.log(form.valid)
     console.log("hello world!!!")
   }
 

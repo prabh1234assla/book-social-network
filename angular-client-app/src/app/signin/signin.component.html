@@ -1,12 +1,12 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
 
-    <div formGroupName="name">
+    <div>
         <label>
             username:
             <input formControlName="name">
         </label>
         <div *ngIf="loginForm.get('name')?.invalid && (loginForm.get('name')?.dirty || loginForm.get('name')?.touched)">
-            provide a username.
+            username can contain characters: a-z, A-Z, 0-9 or '_', '-' or '.'
         </div>
     </div>
 
@@ -16,7 +16,7 @@
             <input formControlName="password">
         </label>
         <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
-            provide a password.
+            password can contain characters: a-z, A-Z, 0-9, or any in '!&#64;#$%^&*_-.' and minimum length is 8
         </div>
     </div>
 

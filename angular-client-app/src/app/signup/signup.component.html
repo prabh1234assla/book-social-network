@@ -1,35 +1,46 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm)">
+<div id="registerForm">
 
-    <div>
-        <label>
-            username:
-            <input formControlName="name">
-        </label>
-        <div *ngIf="registerForm.get('name')?.invalid && (registerForm.get('name')?.dirty || registerForm.get('name')?.touched)">
-            provide a username.
+    <img src="assets/auxillary/pattern.jpg" alt="pattern" height="418px" width="418px" />
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm)">
+
+        <div>
+            <label>
+                username:
+                <br />
+                <input formControlName="name">
+            </label>
+            <div
+                *ngIf="registerForm.get('name')?.invalid && (registerForm.get('name')?.dirty || registerForm.get('name')?.touched)">
+                username can contain characters: a-z, A-Z, 0-9 or '_', '-' or '.'
+            </div>
         </div>
-    </div>
 
-    <div>
-        <label>
-            email:
-            <input formControlName="email">
-        </label>       
-        <div *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)">
-            email format wrong.
+        <div>
+            <label>
+                email:
+                <br />
+                <input formControlName="email">
+            </label>
+            <div
+                *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)">
+                email can contain characters: a-z, A-Z, 0-9 or '_', '&#64;' or '.'
+            </div>
         </div>
-    </div>
 
-    <div>
-        <label>
-            password:
-            <input formControlName="password">
-        </label>
-        <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)">
-            provide a password.
+        <div>
+            <label>
+                password:
+                <br />
+                <input formControlName="password">
+            </label>
+            <div
+                *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)">
+                password can contain characters: a-z, A-Z, 0-9, or any in '!&#64;#$%^&*_-.' and minimum length is 8
+            </div>
         </div>
-    </div>
 
-    <button type="submit" [disabled]="registerForm.invalid" >signup!</button>
+        <button type="submit" [disabled]="registerForm.invalid">signup!</button>
 
-</form>
+    </form>
+</div>

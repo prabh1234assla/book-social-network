@@ -7,7 +7,7 @@ import { SigninComponent } from './signin/signin.component';
 import { ErrorComponent } from './error/error.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'readersList', pathMatch: 'full'},
+  { path: '', redirectTo: 'register', pathMatch: 'full'},
   { path: 'readersList', component: ReadersListComponent },
   { path: 'library', component: LibraryComponent },
   { path: 'register', component: SignupComponent },

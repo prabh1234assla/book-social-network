@@ -1,0 +1,62 @@
+$bg : #090360
+$label : #5C57BE
+$input : #8C89FE
+$submit : #817DFF
+$submit_bg : #564EC8
+$link : #564EC8
+
+// 400-700
+.monda-font 
+    font-family: "Monda", sans-serif
+    font-optical-sizing: auto
+    font-weight: 400
+    font-style: normal
+
+
+div#registerForm 
+    background-color: $bg
+    height: 100vh
+    width: 100vw
+    display: flex
+    justify-content: center
+    align-items: center
+    @extend .monda-font
+
+    img
+        margin: 1%
+
+    form
+        margin: 1%
+
+        > div
+            margin: 1.2em
+
+        > div label
+            color: $label
+            font-size: 1.35em
+            font-variant-caps: petite-caps
+            font-weight: 600
+
+            input
+                border: none
+                outline: none
+                height: 35px
+                width: 340px
+                background-color: $input
+
+                &:hover
+                    border: none
+            
+        > button
+            border: none
+            outline: none
+            margin: 0.8em
+            height: 40px
+            width: 120px
+            background: $submit_bg
+            color: $submit
+            font-size: 1.55em
+            vertical-align: text-bottom
+            font-variant-caps: petite-caps
+            font-weight: 700
+        
