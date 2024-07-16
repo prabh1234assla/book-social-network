@@ -1,6 +1,8 @@
 <div id="registerForm">
 
-    <img src="assets/auxillary/pattern.jpg" alt="pattern" height="418px" width="418px" />
+    <div>
+        <img src="assets/auxillary/pattern.jpg" alt="pattern" height="500px" width="500px" />
+    </div>
 
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm)">
 
@@ -40,7 +42,12 @@
             </div>
         </div>
 
-        <button type="submit" [disabled]="registerForm.invalid">signup!</button>
+        <button type="submit" [ngStyle]="{'opacity': registerForm.invalid ? 0.2 : 1}" [disabled]="registerForm.invalid">signup!</button>
+        
+        <br />
+        <span>already registered?</span>
+        <br />
+        <a routerLink="/login" class="margin-up">Go to signin</a>
 
     </form>
 </div>

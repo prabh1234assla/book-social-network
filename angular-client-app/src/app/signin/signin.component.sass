@@ -1,0 +1,86 @@
+$bg : #090360
+$label : #5C57BE
+$input : #49439D
+$input_bg : #8C89FE
+$submit : #817DFF
+$submit_bg : #564EC8
+$link : #564EC8
+$error_bg : #9C3535
+$error : #f3a7d5
+
+// 400-700
+.monda-font 
+    font-family: "Monda", sans-serif
+    font-optical-sizing: auto
+    font-weight: 400
+    font-style: normal
+
+div#loginForm 
+    background-color: $bg
+    height: 100vh
+    width: 100vw
+    display: flex
+    justify-content: center
+    align-items: center
+    @extend .monda-font
+
+    > div
+        width: 600px
+        height: 600px
+        display: flex
+        justify-content: center
+        align-items: center
+
+    form
+
+        > div
+            margin: 5% 0%
+
+        > div div
+                height: 32px
+                width: 310.2px
+                font-size: 0.7em
+                background-color: $error_bg
+                color: $error
+                text-align: right
+                font-weight: 700
+                padding: 1%
+
+        > div label
+            color: $label
+            font-size: 1.3em
+            font-variant-caps: petite-caps
+            font-weight: 700
+
+            input
+                border: none
+                outline: none
+                height: 26px
+                width: 304px
+                background-color: $input_bg
+                color: $input
+                font-weight: 500
+                font-size: 0.9em
+                padding: 2%
+            
+        > button
+            border: none
+            outline: none
+            height: 40px
+            width: 120px
+            background: $submit_bg
+            color: $submit
+            font-size: 1.55em
+            vertical-align: middle
+            font-variant-caps: petite-caps
+            font-weight: 700
+        
+    span, a
+        color: $link
+        text-decoration: underline
+        font-size: 0.8em
+
+    a.margin-up
+        font-variant-caps: petite-caps
+        font-weight: 600
+        font-size: 1em

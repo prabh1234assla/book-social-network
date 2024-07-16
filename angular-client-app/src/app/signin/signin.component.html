@@ -1,25 +1,41 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
+<div id="loginForm">
 
     <div>
-        <label>
-            username:
-            <input formControlName="name">
-        </label>
-        <div *ngIf="loginForm.get('name')?.invalid && (loginForm.get('name')?.dirty || loginForm.get('name')?.touched)">
-            username can contain characters: a-z, A-Z, 0-9 or '_', '-' or '.'
-        </div>
+        <img src="assets/auxillary/pattern.jpg" alt="pattern" height="500px" width="500px" />
     </div>
 
-    <div>
-        <label>
-            password:
-            <input formControlName="password">
-        </label>
-        <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
-            password can contain characters: a-z, A-Z, 0-9, or any in '!&#64;#$%^&*_-.' and minimum length is 8
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
+
+        <div>
+            <label>
+                username:
+                <br />
+                <input formControlName="name">
+            </label>
+            <div
+                *ngIf="loginForm.get('name')?.invalid && (loginForm.get('name')?.dirty || loginForm.get('name')?.touched)">
+                username can contain characters: a-z, A-Z, 0-9 or '_', '-' or '.'
+            </div>
         </div>
-    </div>
 
-    <button type="submit" [disabled]="loginForm.invalid" >signin!</button>
+        <div>
+            <label>
+                password:
+                <br />
+                <input formControlName="password">
+            </label>
+            <div
+                *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+                password can contain characters: a-z, A-Z, 0-9, or any in '!&#64;#$%^&*_-.' and minimum length is 8
+            </div>
+        </div>
 
-</form>
+        <button type="submit" [ngStyle]="{'opacity': loginForm.invalid ? 0.2 : 1}" [disabled]="loginForm.invalid">signin</button>
+        
+        <br />
+        <span>not yet registered?</span>
+        <br />
+        <a routerLink="/register" class="margin-up">Go to signup</a>
+
+    </form>
+</div>
