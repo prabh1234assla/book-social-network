@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { WebApiService } from './web-api.service';
 
-const apiUrl = "http://localhost:8100/";
+const apiUrl = "http://localhost:8000/";
 
 const httpLink = {
-  signup: apiUrl + "auth/register",
-  signin: apiUrl + "auth/login",
+  signup: apiUrl + "auth/signup",
+  signin: apiUrl + "auth/signin",
   library: apiUrl + "books/",
 }
 
@@ -20,6 +20,7 @@ export class HttpProviderService {
   constructor(private webapiservice: WebApiService) { }
 
   public signup(jsonData: JSON): Observable<any> {
+    console.log(jsonData)
     return this.webapiservice.post(httpLink.signup, JSON.stringify(jsonData));
   }
 

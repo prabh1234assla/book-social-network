@@ -9,6 +9,7 @@ import { SigninComponent } from './signin/signin.component';
 import { ErrorComponent } from './error/error.component';
 import { LibraryComponent } from './library/library.component';
 import { ReadersListComponent } from './readers-list/readers-list.component';
+import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { ReadersListComponent } from './readers-list/readers-list.component';
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [provideHttpClient()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

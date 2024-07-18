@@ -13,12 +13,11 @@ export class WebApiService {
 
   private getHttpOptions(url: string): { headers: HttpHeaders, observe: 'body' } {
     let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Cache-Control': 'no-cache',
-      'Pragma': 'no-cache'
+      'Content-Type': 'application/json'
     });
 
     if (!(url.endsWith('/auth/signin') || url.endsWith('/auth/signup'))) {
+      console.log('sjjsj')
       const token = this.getToken();
       headers = headers.set('Authorization', `Bearer ${token}`);
     }
@@ -34,8 +33,8 @@ export class WebApiService {
   }
 
   get(url: string): Observable<any> {
+    console.log('sjjsjjs')
     const httpOptions = this.getHttpOptions(url);
-
     return this.httpClient.get(
       url,
       httpOptions
@@ -48,6 +47,8 @@ export class WebApiService {
 
   post(url: string, model: any): Observable<any> {
     const httpOptions = this.getHttpOptions(url);
+
+    console.log(url, model, httpOptions)
 
     return this.httpClient.post(
       url,

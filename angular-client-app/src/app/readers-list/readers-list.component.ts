@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './readers-list.component.sass'
 })
 export class ReadersListComponent {
-
+  
 }
