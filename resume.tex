@@ -1,0 +1,345 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[colorlinks = true,
+            linkcolor = red,
+            urlcolor  = blue,
+            citecolor = blue,
+            anchorcolor = blue]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\usepackage{multicol}
+\setlength{\multicolsep}{-3.0pt}
+\setlength{\columnsep}{-1pt}
+\input{glyphtounicode}
+
+
+%----------FONT OPTIONS----------
+% sans-serif
+% \usepackage[sfdefault]{FiraSans}
+% \usepackage[sfdefault]{roboto}
+% \usepackage[sfdefault]{noto-sans}
+% \usepackage[default]{sourcesanspro}
+
+% serif
+% \usepackage{CormorantGaramond}
+% \usepackage{charter}
+
+\hypersetup{pdfborder = 0 0 0}
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.6in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1.19in}
+\addtolength{\topmargin}{-.7in}
+\addtolength{\textheight}{1.4in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\classesList}[4]{
+    \item\small{
+        {#1 #2 #3 #4 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{1.0\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & \textbf{\small #2} \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{1.001\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & \textbf{\small #2}\\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemi{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.0in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+
+
+\begin{document}
+
+\begin{center}
+    {\Huge \scshape Prabhdeep Singh Assla} \\ \vspace{5pt}
+    \small
+    \raisebox{-0.1\height}\faPhone\ +91 9622276166 ~
+    \href{mailto:sharma01ketan@gmail.com}{\faEnvelope\ pdsinghassla@gmail.com} ~
+    % \href{https://linkedin.com/in/}{\faLinkedin\ }  ~
+     \href{https://leetcode.com/u/sharma01ketan/}{\fa\ Leetcode}
+     \href{https://www.linkedin.com/in/prabhdeep-singh-87536a223/}{\faGithub\ LinkedIn}
+     \href{https://github.com/prabh1234assla}{\faGithub\ GitHub}
+     \href{https://medium.com/@trustworthy1209}{\faGithub\ Medium}
+    \vspace{-2pt}
+\end{center}
+
+
+% -----------Summary-----------
+% \section{Objective}
+%   \small{Enter your objective here}
+\vspace{0pt}
+% adjust vscape based on the space you want to leave between each section.
+
+
+%-----------EDUCATION-----------
+\section{Education}
+\resumeSubHeadingListStart
+    \resumeSubheading
+      {National Institute of Technology, Srinagar}{CGPA: 8.56}
+      {BTech. Information Technology }{2021 -- 2025}
+      %leave a line after this
+      
+      % \small{\textbf{Coursework: Course-1, Course-2, Course-3, Course-4}}
+    \resumeSubheading
+      {SP Smart School, Bari Brahmana}{Percentage: 94.1}
+      {Higher Secondary Education | JKBOSE }{2019 -- 2020} 
+      % {Schooling | JKBOSE }{Percentage: 92.8}
+      %leave a line after this
+      
+      % \small{\textbf{Coursework: Course-1, Course-2, Course-3, Course-4}}
+  \resumeSubHeadingListEnd
+\vspace{-15pt}
+
+%-----------Technical Skilss-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.1in, label={}]
+    \small{\item{
+     \textbf{Languages}{: Javascript, Typescript, C, C++, Java, Python} \\
+     \textbf{JS Frameworks \& Libraries}{: Node, Express, Vite, Next, Gatsby, React, Jquery, Angular, Bun} \\
+     \textbf{Essential Web Skills}{: HTML5, CSS3, Webpack} \\
+     \textbf{Databases, ORMs \& ODMs}{: MongoDB, Mongoose, PostgreSQL, Prisma, SQLite} \\
+     \textbf{REST, CMS \& DB Tools}{: PostMan, Strapi, GraphQL, Redis, AJAX} \\
+     \textbf{Backend Frameworks}{: SpringBoot, Flask, Django} \\
+     \textbf{CSS Frameworks}{: TailwindCSS, PostCSS}\\
+     \textbf{UI Component Libraries}{: Material UI, Shadcn/ui, styled-components, Storybook }\\
+     \textbf{UI/UX, Logo Designing \& Image Editing Tools}{: Figma, Canva, InkScape, PhotoShop, GIMP, Krita }\\
+     \textbf{3D \& Data Visualization Tools}{: Blender, Three.js, Pixi.js, D3.js, Chart.js }\\
+     \textbf{Gaming Libraries}{: SDL2, Godot }\\
+     \textbf{Real-time Communication Tools}{: Socket.IO, WebRTC, Algolia }\\
+     \textbf{Devops Tools}{: Docker, Kubernetes, AWS, Ansible, GitHub}\\
+     \textbf{Generic Skills}{: Linux }\\
+     
+     
+     
+    }}
+ \end{itemize}
+ \vspace{-15pt}
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+
+
+
+
+
+    \resumeSubHeadingListStart
+    \resumeSubheading
+      {Full Stack Intern ASD}{4th Dec, 2023 -- 22nd Jan, 2024}
+      {Full Stack (Intern)}{Node.js, Express.js, React.js, MongoDB}
+      \resumeItemListStart
+        \resumeItem { Working on MERN Stack and building a fullStack App(food delivery app). }
+%Based on the number of point you want to add add the "\resumeItem" for each point you want to add.
+ \resumeSubHeadingListEnd
+    \resumeItemListEnd
+ \vspace{-5pt}
+\resumeSubHeadingListStart
+    \resumeSubheading
+      {GirlScript Summer of Code}{May 2024 -- August 2024}
+      {Open Source Contribution Program}{}%Node.js, Express.js, React.js, MongoDB
+      \resumeItemListStart
+        \resumeItem {Working with several mentors involved under Program to gain more insights in the field of OpenSource.  }
+%Based on the number of point you want to add add the "\resumeItem" for each point you want to add.
+ \resumeSubHeadingListEnd
+    \resumeItemListEnd
+ \vspace{-5pt}
+% adjust vscape based on the space you want to leave between each section.
+
+
+%-----------PROJECTS-----------
+\section{Projects}
+    \vspace{-6pt}
+    \resumeSubHeadingListStart
+
+    
+\resumeProjectHeading
+    {\textbf{libagement} $|$ \emph{\href{https://github.com/prabh1234assla/book-social-network}{Repo Link}}}{SpringBoot Postman AngularJs PostgreSQL Figma TypeScript}
+          \resumeItemListStart
+          \vspace{5pt}
+            \resumeItem{Library Management System built using 'apis built in SpringBoot'(backend), PostgreSQL(database) and AngularJs(frontend). }
+            \resumeItem{Allows an ADMIN to perform all CRUD operations to book entites stored in DB; meanwhile restricting the USERS to only READ books. }
+            \resumeItem{Testing of apis done via Postman. For UI designing I used Figma. For building UI I used AngularJs. Authentication of routes done via JWT tokens.}
+          \resumeItemListEnd
+          \vspace{-20pt}
+          
+          % {\textbf{Line Encoder} $|$ \emph{HTML, CSS, JavaScript \href{https://github.com/sharma01ketan/Line-Encoder}{}}}{}
+          \resumeProjectHeading
+          {\textbf{Piechat} $|$ \emph{\href{https://github.com/prabh1234assla/discord-clone}{Repo Link}}}{WebRTC Socket.IO Algolia NextJs TailwindCSS Shadcn/ui Figma TypeScript PostgreSQL}
+          \resumeItemListStart
+          \vspace{5pt}
+            \resumeItem{Social media app with video calling feature built using WebRTC and Algolia. Supports chatting spaces for users via Socket.IO.}
+            \resumeItem{Voice calling and Geolocation sensing both features available. Bots can be added for moderation. AI bots can also be added. }
+            \resumeItem{Frontend built using TypeScript, NextJs, shadercn/ui and TailwindCSS. }
+          \resumeItemListEnd
+          \vspace{-20pt}
+          
+    \resumeProjectHeading
+          {\textbf{Death Of Roses} $|$ \emph{\href{https://github.com/prabh1234assla/death_of_roses_nextjs_blog}{Repo Link}}}{ThreeJs PixiJs GSAP D3Js NextJs Figma InkScape, Krita, GIMP}
+          \resumeItemListStart
+          \vspace{5pt}
+            \resumeItem{Poetry blog with UI designing done using Figma, Krita, InkScape and GIMP. }
+            \resumeItem{For special effects I used shaders, ThreeJs, D3Js, PixiJs and GSAP. }
+             \resumeItem{For frontend I used NextJs and for Database I used MongoDB. }
+          \resumeItemListEnd
+          \vspace{-20pt}
+
+\resumeProjectHeading
+{\textbf{Coper Venture} $|$ \emph{\href{ttps://github.com/prabh1234assla/coper-venture}{Repo Link}}}{Blender ThreeJs React-Three-Fiber React-Spring TypeScript NextJs}
+\resumeItemListStart
+\vspace{5pt}
+  \resumeItem{3D copter game built using ThreeJs and TypeScript in NextJs. }
+  \resumeItem{Copter models and 3D game assets built in blender. }
+\resumeItemListEnd
+\vspace{-20pt}
+
+\resumeProjectHeading
+{\textbf{Pacman} $|$ \emph{\href{https://github.com/prabh1234assla/Pacman}{Repo Link}}}{SDL2 C++}
+\resumeItemListStart
+\vspace{5pt}
+  \resumeItem{2D pacman game built in C++ using SDL2. }
+\resumeItemListEnd
+\vspace{-20pt}
+
+\resumeProjectHeading
+{\textbf{VisualGorithm} $|$ \emph{\href{https://github.com/prabh1234assla/visualizer_algos}{Repo Link}}}{D3Js ViteJs Flask TypeScript}
+\resumeItemListStart
+\vspace{5pt}
+  \resumeItem{Graph algorithms' Visualizer built using D3.js in Vite.js using TypeScript. }
+  \resumeItem{algorithms all are written in Python3 and thus used backend is Flask-based. }
+\resumeItemListEnd
+\vspace{-20pt}
+
+\resumeProjectHeading
+{\textbf{Pictorae} $|$ \emph{\href{https://github.com/prabh1234assla/image_gallery}{Repo Link}}}{GSAP ThreeJs TypeScript NextJs PhotoShop Figma Krita GIMP InkScape }
+\resumeItemListStart
+\vspace{5pt}
+  \resumeItem{A Mock-site that displays all my designed graphics in a creative manner. }
+  \resumeItem{I have used React-Three-Fiber and React-Spring also.  }
+\resumeItemListEnd
+\vspace{-20pt}
+\resumeSubHeadingListEnd
+\vspace{2pt}
+
+
+% \resumeProjectHeading
+%           {\textbf{FFMPEG Video Streaming} $|$ \emph{\href{https://github.com/sharma01ketan/Video-Streaming-Project}{GitHub}}}{Java}
+%           \resumeItemListStart
+%           \vspace{0pt}
+%             \resumeItem{ Key Features - 4 layers of TCP/IP Model: Physical Layer, Data Link layer, Network Layer and Application Layer with 2 application layer protocols:  DNS and HTTP, implemented using Java libraries.}
+%             \resumeItem{ Technologies and Concepts used - TCP/IP Model, Java HTTP Library and Graph Data Structure.}
+%              \resumeItem{ Illustrated 2 routing algorithms: Static Routing and Distance Vector Routing using Distributed Bellman Ford Algorithm}
+%           \resumeItemListEnd
+%           \vspace{-14pt}
+%     \resumeSubHeadingListEnd
+% \vspace{-5pt}
+
+%  \resumeProjectHeading
+%           {\textbf{FFMPEG Video Streaming} $|$ \emph{\href{https://github.com/sharma01ketan/Video-Streaming-Project}{GitHub}}}{React.js, Multer.js, Node.js, FFMPEG}
+%           \resumeItemListStart
+%           \vspace{0pt}
+%             \resumeItem{Primary libraries implemented(2): FFMPEG for streaming and Multer for file uploading.}
+%             \resumeItem{ Indexed the videos using m3u8 file format and streamed them over via HLS protocol.}
+%              \resumeItem{ Illustrated 2 routing algorithms: Static Routing and Distance Vector Routing using Distributed Bellman Ford Algorithm}
+%           \resumeItemListEnd
+%           \vspace{-14pt}
+%     \resumeSubHeadingListEnd
+% \vspace{-5pt}
+
+
+%------------Publications-----------
+\section{Achievements}
+
+\resumeSubHeadingListStart
+\resumeSubheading
+  {Hindi Pakhwada Events, NIT Srinagar}{1 Sept, 2022 -- 15 Sept, 2022}
+  {Made a logo for logo designing competition. Won participation certificate.}{}
+
+\vspace{-4pt}
+
+
+
+\resumeSubheading
+  {'dev-hacks' Hackathon IIEDC, NIT Srinagar}{25 Nov, 2023}
+  {Created a solution for keeping record of vehicles coming and resulting traffic in NIT campus. Won 2nd Position.}{}
+
+\vspace{-4pt}
+
+
+\resumeSubheading
+  {Traffic Hackathon, 2022(by J\&K Police, IIT Jammu \& NIT Srinagar)}{}
+  {Created a solution for countering traffic buildup in Srinagar and Jammu by giving a feasible solution. Won 7th Position. }{}
+
+\resumeSubHeadingListStart
+
+% adjust vscape based on the space you want to leave between each section.
+
+%-----------PROGRAMMING SKILLS-----------
+% \section{Miscellaneous}
+% {\textbf{Position Of Responsibility: } $:$ {{Conducted Debate at NIT Techfest, with 50+ contenders from 20+ schools.}}}{}
+
+% {\textbf{Co-curricular: } $:$ {{Portrayed the role of 'Banquo', the second lead character from William Shakespeare's "Macbeth," in a production at NIT Srinagar for 300+ live audience.}}}{}
+%      \vspace{-25pt}
+
+
+
+\end{document}
