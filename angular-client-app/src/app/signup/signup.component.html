@@ -10,10 +10,10 @@
             <label>
                 username:
                 <br />
-                <input formControlName="name">
+                <input formControlName="username">
             </label>
             <div
-                *ngIf="registerForm.get('name')?.invalid && (registerForm.get('name')?.dirty || registerForm.get('name')?.touched)">
+                *ngIf="registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)">
                 username can contain characters: a-z, A-Z, 0-9 or '_', '-' or '.'
             </div>
         </div>

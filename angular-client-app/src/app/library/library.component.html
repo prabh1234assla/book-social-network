@@ -10,7 +10,7 @@
     </nav>
     <main>
         <section *ngFor="let genresLabel of genresLabelsList">
-            <div class="genre">{{genresLabel + ' :'}}</div>
+            <div *ngIf="hasBooksForGenre(genresLabel)" class="genre">{{genresLabel + ' :'}}</div>
             <div class="bookCover">
                 <ng-container *ngFor="let book of booksJson">
                     <div class="bookContainer" *ngIf="book.labels.includes(genresLabel)">

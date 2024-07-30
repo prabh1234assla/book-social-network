@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpProviderService } from '../service/http-provider.service';
 import booksJson from "../../assets/json/booksData.json";
 
 @Component({
@@ -7,7 +8,29 @@ import booksJson from "../../assets/json/booksData.json";
   styleUrl: './library.component.sass'
 })
 export class LibraryComponent {
-  booksJson = booksJson
+  constructor(private httpProvider: HttpProviderService) { }
+
+  booksJson: any[] = [];
+
+  async jsonBooks() {
+    this.httpProvider.getLibrary().subscribe({
+      next: data => {
+        console.log(data.body)
+        this.booksJson = data.body
+      },
+      error: error => {
+        alert('There was an error! ' + error);
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    this.jsonBooks();
+  }
+
+  hasBooksForGenre(genresLabel: string): boolean {
+    return this.booksJson && this.booksJson.some(book => book.labels.includes(genresLabel));
+  }
 
   genresLabelsList = ['tale', 'poem', 'story', 'folklore',
     'novel', 'tragedy', 'gothic', 'fiction',

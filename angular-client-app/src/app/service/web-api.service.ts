@@ -17,7 +17,6 @@ export class WebApiService {
     });
 
     if (!(url.endsWith('/auth/signin') || url.endsWith('/auth/signup'))) {
-      console.log('sjjsj')
       const token = this.getToken();
       headers = headers.set('Authorization', `Bearer ${token}`);
     }
@@ -38,26 +37,16 @@ export class WebApiService {
     return this.httpClient.get(
       url,
       httpOptions
-    )
-      .pipe(
-        map((response: any) => (this as any).ReturnResponseData(response)),
-        catchError((this as any).handleError)
-      );
+    );
   }
 
   post(url: string, model: any): Observable<any> {
     const httpOptions = this.getHttpOptions(url);
 
-    console.log(url, model, httpOptions)
-
     return this.httpClient.post(
       url,
       model,
-      httpOptions)
-      .pipe(
-        map((response: any) => (this as any).ReturnResponseData(response)),
-        catchError((this as any).handleError)
-      );
+      httpOptions);
   }
 
   put(url: string, model: any): Observable<any> {
@@ -66,11 +55,7 @@ export class WebApiService {
     return this.httpClient.put(
       url,
       model,
-      httpOptions)
-      .pipe(
-        map((response: any) => (this as any).ReturnResponseData(response)),
-        catchError((this as any).handleError)
-      );
+      httpOptions);
   }
 
   patch(url: string, model: any): Observable<any> {
@@ -79,11 +64,7 @@ export class WebApiService {
     return this.httpClient.patch(
       url,
       model,
-      httpOptions)
-      .pipe(
-        map((response: any) => (this as any).ReturnResponseData(response)),
-        catchError((this as any).handleError)
-      );
+      httpOptions);
   }
 
   delete(url: string): Observable<any> {
@@ -92,11 +73,7 @@ export class WebApiService {
     return this.httpClient.delete(
       url,
       httpOptions
-    )
-      .pipe(
-        map((response: any) => (this as any).ReturnResponseData(response)),
-        catchError((this as any).handleError)
-      );
+    );
   }
 
 }
