@@ -15,7 +15,7 @@
                 <ng-container *ngFor="let book of booksJson">
                     <div class="bookContainer" *ngIf="book.labels.includes(genresLabel)">
                         <div class="cover_and_add_svg">
-                            <img class="addSvg" src="/assets/auxillary/add.svg" width="50px" height="50px" alt="add" /> 
+                            <img class="addSvg" src="/assets/auxillary/add.svg" width="50px" height="50px" alt="add" (click)="borrowBook(book.id)" /> 
                             <img class="cover" [src]="'/assets/'+book.imageLink" width="203px" height="303px" [alt]="book.imageLink.split('/')[1].split('.')[0]+' image'" />
                         </div>
                         <ul *ngFor="let labels of book.genre">

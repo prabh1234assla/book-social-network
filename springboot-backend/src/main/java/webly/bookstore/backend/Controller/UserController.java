@@ -24,9 +24,9 @@ import com.github.fge.jsonpatch.JsonPatch;
 import webly.bookstore.backend.Models.Book;
 import webly.bookstore.backend.Models.User;
 import webly.bookstore.backend.Models.UserModel;
+import webly.bookstore.backend.Models.UserRole;
 import webly.bookstore.backend.Service.BookService;
 import webly.bookstore.backend.Service.UserService;
-
 
 @RestController
 @RequestMapping("/user")
@@ -34,12 +34,12 @@ public class UserController {
     private final UserService service;
     private final BookService bookService;
 
-    public UserController(UserService service, BookService bookService){
+    public UserController(UserService service, BookService bookService) {
         this.service = service;
         this.bookService = bookService;
     }
 
-    private User getAuthenticatedUser(){
+    private User getAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         return (User) authentication.getPrincipal();
@@ -53,11 +53,17 @@ public class UserController {
         return ResponseEntity.ok(currentUser);
     }
 
+    // add a book
     @PostMapping("/book/{id}")
-    public ResponseEntity<Book> addBook(@PathVariable("id") int id){
+    public ResponseEntity<Book> addBook(@PathVariable("id") int id) throws Exception {
         User currentUser = getAuthenticatedUser();
 
+        if (currentUser.getRole() == UserRole.ADMIN) {
+            throw new Exception("Gain user priveleges to borrow a book!!!");
+        }
+
         Book addedBook = bookService.findById(id);
+        addedBook.setBorrowed(true);
 
         Set<Book> listOfBooks = currentUser.getBooks();
         listOfBooks.add(addedBook);
@@ -68,47 +74,50 @@ public class UserController {
     }
 
     // create user
-    @PostMapping("/")
-    public ResponseEntity<User> createUser(@RequestBody UserModel user){
-        return new ResponseEntity<>(service.create(user), HttpStatus.CREATED);
-    }
+    // @PostMapping("/")
+    // public ResponseEntity<User> createUser(@RequestBody UserModel user){
+    // return new ResponseEntity<>(service.create(user), HttpStatus.CREATED);
+    // }
 
     // get all users
-    @GetMapping()
-    public ResponseEntity<List <User>> getAllUsers(){
-        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
-    }
+    // @GetMapping()
+    // public ResponseEntity<List <User>> getAllUsers(){
+    // return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
+    // }
 
     // get user with specific id
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getOneUser(@PathVariable("id") int id){
-        return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
-    }
+    // @GetMapping("/{id}")
+    // public ResponseEntity<User> getOneUser(@PathVariable("id") int id){
+    // return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
+    // }
 
     // update a user with specific id
-    @PutMapping("/update/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public void updateOneUser(@PathVariable("id") int id, @RequestBody UserModel book){
-        service.updateOne(id, book);
-    }
+    // @PutMapping("/update/{id}")
+    // @ResponseStatus(HttpStatus.OK)
+    // public void updateOneUser(@PathVariable("id") int id, @RequestBody UserModel
+    // book){
+    // service.updateOne(id, book);
+    // }
 
     // update specific info of user with a specific id
-    @PatchMapping(value = "/update/{id}",  consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> patchOneUser(@PathVariable("id") int id, @RequestBody JsonPatch patch){
-        return new ResponseEntity<>(service.patchOne(id, patch), HttpStatus.OK);
-    }
+    // @PatchMapping(value = "/update/{id}", consumes =
+    // MediaType.APPLICATION_JSON_VALUE)
+    // public ResponseEntity<User> patchOneUser(@PathVariable("id") int id,
+    // @RequestBody JsonPatch patch){
+    // return new ResponseEntity<>(service.patchOne(id, patch), HttpStatus.OK);
+    // }
 
     // delete user with specific id
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public void deleteOneUser(@PathVariable("id") int id){
-        service.deleteById(id);
-    }
+    // @DeleteMapping("/{id}")
+    // @ResponseStatus(HttpStatus.OK)
+    // public void deleteOneUser(@PathVariable("id") int id){
+    // service.deleteById(id);
+    // }
 
     // delete all users
-    @DeleteMapping()
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteAllUsers(){
-        service.deleteAll();
-    }
+    // @DeleteMapping()
+    // @ResponseStatus(HttpStatus.NO_CONTENT)
+    // public void deleteAllUsers(){
+    // service.deleteAll();
+    // }
 }

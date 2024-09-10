@@ -9,6 +9,7 @@ const httpLink = {
   signup: apiUrl + "auth/signup",
   signin: apiUrl + "auth/signin",
   library: apiUrl + "book",
+  borrow: apiUrl + "book/borrow"
 }
 
 @Injectable({
@@ -29,6 +30,11 @@ export class HttpProviderService {
 
   public getLibrary(): Observable<any> {
     return this.webapiservice.get(httpLink.library);
+  }
+
+  public borrowBook(id: number, jsonData: any): Observable<any> {
+    console.log(JSON.stringify(jsonData))
+    return this.webapiservice.patch(httpLink.borrow + "/" + id, JSON.stringify(jsonData));
   }
 
   public addBookToLibrary(id: number, jsonData: JSON): Observable<any> {

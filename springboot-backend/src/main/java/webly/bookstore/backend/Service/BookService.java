@@ -2,6 +2,8 @@ package webly.bookstore.backend.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Service;
 
@@ -34,6 +36,13 @@ public class BookService {
                             .pages(book.getPages())
                             .title(book.getTitle())
                             .year(book.getYear())
+                            .genre(book.getGenre())
+                            .labels(book.getLabels())
+                            .information(book.getInformation())
+                            .isBorrowed(false)
+                            .borrowedAt(LocalDateTime.now())
+                            .dueDate(LocalDateTime.now())
+                            .returnDate(LocalDateTime.now())
                             .build();
         
         return repository.save(bookToSave);
@@ -51,7 +60,6 @@ public class BookService {
         if(repository.findById(id).isEmpty())
             throw new EntityNotFoundException();
 
-
         Book bookToUpdate = repository.getReferenceById(id);
         
         bookToUpdate.setAuthor(book.getAuthor());
@@ -62,6 +70,13 @@ public class BookService {
         bookToUpdate.setPages(book.getPages());
         bookToUpdate.setTitle(book.getTitle());
         bookToUpdate.setYear(book.getYear());
+        bookToUpdate.setGenre(book.getGenre());
+        bookToUpdate.setLabels(book.getLabels());
+        bookToUpdate.setInformation(book.getInformation());
+        bookToUpdate.setBorrowed(false);
+        bookToUpdate.setBorrowedAt(null);
+        bookToUpdate.setDueDate(null);
+        bookToUpdate.setReturnDate(null);
 
         repository.save(bookToUpdate);
     }

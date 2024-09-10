@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +59,8 @@ export class WebApiService {
 
   patch(url: string, model: any): Observable<any> {
     const httpOptions = this.getHttpOptions(url);
+
+    console.log(httpOptions)
 
     return this.httpClient.patch(
       url,

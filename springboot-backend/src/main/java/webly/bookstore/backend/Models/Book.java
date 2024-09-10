@@ -1,5 +1,6 @@
 package webly.bookstore.backend.Models;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import javax.validation.constraints.NotNull;
@@ -69,4 +70,25 @@ public class Book extends BaseEntity {
         inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private Set<Book> users;
+
+    @Column(name = "genre", nullable = false)
+    private String genre[];
+
+    @Column(name = "labels", nullable = false)
+    private String labels[];
+
+    @Column(name = "information", nullable = false)
+    private String information;
+
+    @Column(name = "isBorrowed", nullable = false)
+    private boolean isBorrowed;
+
+    @Column(name = "borrowedAt", nullable = false)
+    private LocalDateTime borrowedAt;
+
+    @Column(name = "dueDate", nullable = false)
+    private LocalDateTime dueDate;
+
+    @Column(name = "returnDate", nullable = false)
+    private LocalDateTime returnDate;
 }

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { HttpProviderService } from '../service/http-provider.service';
-import booksJson from "../../assets/json/booksData.json";
 
 @Component({
   selector: 'app-library',
@@ -29,7 +28,28 @@ export class LibraryComponent {
   }
 
   hasBooksForGenre(genresLabel: string): boolean {
-    return this.booksJson && this.booksJson.some(book => book.labels.includes(genresLabel));
+    return this.booksJson && this.booksJson.some(book => book.labels.includes(genresLabel) && !book.isBorrowed);
+  }
+
+  borrowBook(id: number): void {
+    const data = [
+      {
+        "op": "replace",
+        "path": "/borrowed",
+        "value": true
+      }
+    ];
+    
+    this.httpProvider.borrowBook(id, data).subscribe({
+      next: data => {
+        console.log(data.body)
+        // this.booksJson = data.body
+      },
+      error: error => {
+        console.log(error);
+        alert('There was an error! ' + error);
+      }
+    });
   }
 
   genresLabelsList = ['tale', 'poem', 'story', 'folklore',

@@ -17,7 +17,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE book SET author = ?1, country = ?2, imageLink = ?3, language = ?4, link = ?5, pages = ?6, title = ?7, year = ?8 WHERE id = ?9", nativeQuery = true)
+    @Query(value = "UPDATE book SET author = ?1, country = ?2, imageLink = ?3, language = ?4, link = ?5, pages = ?6, title = ?7, year = ?8, genre = ?9, labels = ?10, information = ?11, isBorrowed = ?12, borrowedAt = ?13, dueDate = ?14, returnDate = ?15 WHERE id = ?16", nativeQuery = true)
     void updateById(@PathVariable("id") int id, @RequestBody BookModel book);
 
 }

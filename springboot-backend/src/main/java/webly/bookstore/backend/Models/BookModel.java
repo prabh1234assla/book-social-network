@@ -20,5 +20,7 @@ public class BookModel {
     private String title;
     private Integer year;
     private Set<User> users;
-
+    private String genre[];
+    private String labels[];
+    private String information;
 }

@@ -23,7 +23,7 @@ public class BookStoreBackendApplication {
 				registry.
 						addMapping("/**").
 						allowedHeaders("Authorization", "Content-Type").
-						allowedMethods("POST", "GET").
+						allowedMethods("POST", "GET", "PATCH").
 						allowedOrigins("http://localhost:8000", "http://localhost:4200");
 			}
 		};
