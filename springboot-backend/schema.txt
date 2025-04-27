@@ -1,0 +1,5 @@
+role -> admin, student, faculty
+
+user: USERNAME + EMAIL -> SSO DEFINES WHETHER FACULTY OR STUDENT 
+student: [fee], [course]
+faculty: student, 
