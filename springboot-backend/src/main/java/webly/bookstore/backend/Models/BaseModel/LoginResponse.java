@@ -1,4 +1,4 @@
-package webly.bookstore.backend.Models;
+package webly.bookstore.backend.Models.BaseModel;
 
 import lombok.Builder;
 import lombok.Getter;

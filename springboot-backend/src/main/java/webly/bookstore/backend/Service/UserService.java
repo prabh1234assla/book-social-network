@@ -13,7 +13,7 @@ import com.github.fge.jsonpatch.JsonPatchException;
 
 import jakarta.persistence.EntityNotFoundException;
 import webly.bookstore.backend.Models.User;
-import webly.bookstore.backend.Models.UserModel;
+import webly.bookstore.backend.Models.BaseModel.UserModel;
 import webly.bookstore.backend.Repository.UserRepository;
 
 @Service
@@ -30,8 +30,12 @@ public class UserService {
                             .username(user.getUsername())
                             .email(user.getEmail())
                             .password(user.getPassword())
+                            .coursesTaught(null)
+                            .enrollments(null)
+                            .fees(null)
+                            .marks(null)
                             .build();
-        
+
         return repository.save(userToSave);
     }
 
@@ -43,34 +47,32 @@ public class UserService {
         return repository.findAll().stream().sorted(Comparator.comparing(User::getId)).toList();
     }
 
-    public void updateOne(long id, UserModel user){
+    public void updateCoursesTaughtById(long id, UserModel user){
         if(repository.findById(id).isEmpty())
             throw new EntityNotFoundException();
 
-        User userToUpdate = repository.getReferenceById(id);
-        
-        userToUpdate.setRole(user.getRole());
-        userToUpdate.setEmail(user.getEmail());
-        userToUpdate.setUsername(user.getUsername());
-        userToUpdate.setPassword(user.getPassword());
-        userToUpdate.setBooks(user.getBooks());
-
-        repository.save(userToUpdate);
+        repository.updateCoursesTaughtById(id, user);
     }
 
-    public void updateOne(long id, User user){
+    public void updateEnrollmentsById(long id, UserModel user){
         if(repository.findById(id).isEmpty())
             throw new EntityNotFoundException();
 
-        User userToUpdate = repository.getReferenceById(id);
-        
-        userToUpdate.setRole(user.getRole());
-        userToUpdate.setEmail(user.getEmail());
-        userToUpdate.setUsername(user.getUsername());
-        userToUpdate.setPassword(user.getPassword());
-        userToUpdate.setBooks(user.getBooks());
+        repository.updateEnrollmentsById(id, user);
+    }
 
-        repository.save(userToUpdate);
+    public void updateFeesById(long id, UserModel user){
+        if(repository.findById(id).isEmpty())
+            throw new EntityNotFoundException();
+
+        repository.updateFeesById(id, user);
+    }
+
+    public void updateMarksById(long id, UserModel user){
+        if(repository.findById(id).isEmpty())
+            throw new EntityNotFoundException();
+
+        repository.updateMarksById(id, user);
     }
 
     public User patchOne(long id, JsonPatch patch){

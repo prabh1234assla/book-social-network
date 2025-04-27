@@ -21,22 +21,31 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.fge.jsonpatch.JsonPatch;
 
-import webly.bookstore.backend.Models.Book;
+import webly.bookstore.backend.Models.Fee;
 import webly.bookstore.backend.Models.User;
-import webly.bookstore.backend.Models.UserModel;
-import webly.bookstore.backend.Models.UserRole;
-import webly.bookstore.backend.Service.BookService;
+import webly.bookstore.backend.Models.BaseModel.UserModel;
+import webly.bookstore.backend.Models.Utils.UserRole;
+import webly.bookstore.backend.Service.CourseService;
+import webly.bookstore.backend.Service.FeeService;
+import webly.bookstore.backend.Service.MarksService;
+import webly.bookstore.backend.Service.StudentEnrollmentService;
 import webly.bookstore.backend.Service.UserService;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
     private final UserService service;
-    private final BookService bookService;
+    private final CourseService courseService;
+    private final MarksService marksService;
+    private final FeeService feeService; 
+    private final StudentEnrollmentService studentEnrollmentService;
 
-    public UserController(UserService service, BookService bookService) {
+    public UserController(UserService service, CourseService courseService, MarksService marksService, FeeService feeService, StudentEnrollmentService studentEnrollmentService) {
         this.service = service;
-        this.bookService = bookService;
+        this.courseService = courseService;
+        this.marksService = marksService;
+        this.feeService = feeService;
+        this.studentEnrollmentService = studentEnrollmentService;
     }
 
     private User getAuthenticatedUser() {
@@ -53,71 +62,43 @@ public class UserController {
         return ResponseEntity.ok(currentUser);
     }
 
-    // add a book
-    @PostMapping("/book/{id}")
-    public ResponseEntity<Book> addBook(@PathVariable("id") int id) throws Exception {
-        User currentUser = getAuthenticatedUser();
+    // // add a fee
+    // @PostMapping("/fee/{id}")
+    // public ResponseEntity<Fee> addFee(@PathVariable("id") int id) throws Exception {
+    //     User currentUser = getAuthenticatedUser();
 
-        if (currentUser.getRole() == UserRole.ADMIN) {
-            throw new Exception("Gain user priveleges to borrow a book!!!");
-        }
+    //     if (currentUser.getRole() != UserRole.ADMIN) {
+    //         throw new Exception("Gain admin priveleges to create fee tickets!!!");
+    //     }
 
-        Book addedBook = bookService.findById(id);
-        addedBook.setBorrowed(true);
+    //     Book addedBook = bookService.findById(id);
+    //     addedBook.setBorrowed(true);
 
-        Set<Book> listOfBooks = currentUser.getBooks();
-        listOfBooks.add(addedBook);
+    //     Set<Book> listOfBooks = currentUser.getBooks();
+    //     listOfBooks.add(addedBook);
 
-        service.updateOne(currentUser.getId(), currentUser);
+    //     service.updateOne(currentUser.getId(), currentUser);
 
-        return ResponseEntity.ok(addedBook);
-    }
-
-    // create user
-    // @PostMapping("/")
-    // public ResponseEntity<User> createUser(@RequestBody UserModel user){
-    // return new ResponseEntity<>(service.create(user), HttpStatus.CREATED);
+    //     return ResponseEntity.ok(addedBook);
     // }
 
-    // get all users
-    // @GetMapping()
-    // public ResponseEntity<List <User>> getAllUsers(){
-    // return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
+    // @PostMapping("/book/{id}")
+    // public ResponseEntity<Book> addBook(@PathVariable("id") int id) throws Exception {
+    //     User currentUser = getAuthenticatedUser();
+
+    //     if (currentUser.getRole() == UserRole.ADMIN) {
+    //         throw new Exception("Gain user priveleges to borrow a book!!!");
+    //     }
+
+    //     Book addedBook = bookService.findById(id);
+    //     addedBook.setBorrowed(true);
+
+    //     Set<Book> listOfBooks = currentUser.getBooks();
+    //     listOfBooks.add(addedBook);
+
+    //     service.updateOne(currentUser.getId(), currentUser);
+
+    //     return ResponseEntity.ok(addedBook);
     // }
 
-    // get user with specific id
-    // @GetMapping("/{id}")
-    // public ResponseEntity<User> getOneUser(@PathVariable("id") int id){
-    // return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
-    // }
-
-    // update a user with specific id
-    // @PutMapping("/update/{id}")
-    // @ResponseStatus(HttpStatus.OK)
-    // public void updateOneUser(@PathVariable("id") int id, @RequestBody UserModel
-    // book){
-    // service.updateOne(id, book);
-    // }
-
-    // update specific info of user with a specific id
-    // @PatchMapping(value = "/update/{id}", consumes =
-    // MediaType.APPLICATION_JSON_VALUE)
-    // public ResponseEntity<User> patchOneUser(@PathVariable("id") int id,
-    // @RequestBody JsonPatch patch){
-    // return new ResponseEntity<>(service.patchOne(id, patch), HttpStatus.OK);
-    // }
-
-    // delete user with specific id
-    // @DeleteMapping("/{id}")
-    // @ResponseStatus(HttpStatus.OK)
-    // public void deleteOneUser(@PathVariable("id") int id){
-    // service.deleteById(id);
-    // }
-
-    // delete all users
-    // @DeleteMapping()
-    // @ResponseStatus(HttpStatus.NO_CONTENT)
-    // public void deleteAllUsers(){
-    // service.deleteAll();
-    // }
 }

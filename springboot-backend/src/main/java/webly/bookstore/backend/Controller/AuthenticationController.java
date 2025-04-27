@@ -1,5 +1,6 @@
 package webly.bookstore.backend.Controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,10 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import webly.bookstore.backend.DTOs.LogindDTO;
 import webly.bookstore.backend.DTOs.RegisterDTO;
-import webly.bookstore.backend.Models.LoginResponse;
 import webly.bookstore.backend.Models.User;
+import webly.bookstore.backend.Models.BaseModel.LoginResponse;
 import webly.bookstore.backend.Service.AuthenticationService;
 import webly.bookstore.backend.Service.JwtService;
+import webly.bookstore.backend.exceptions.AuthenticationException;
 
 @RestController
 @RequestMapping("/auth")
@@ -21,31 +23,44 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     public AuthenticationController(
-        JwtService jwtService,
-        AuthenticationService authenticationService
-    ){
+            JwtService jwtService,
+            AuthenticationService authenticationService) {
         this.jwtService = jwtService;
         this.authenticationService = authenticationService;
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<User> Register(@RequestBody RegisterDTO registerDTO){
-        User registeredUser = authenticationService.Signup(registerDTO);
-
-        return ResponseEntity.ok(registeredUser);
+    public ResponseEntity<?> Register(@RequestBody RegisterDTO registerDTO) {
+        try {
+            User registeredUser = authenticationService.Signup(registerDTO);
+            return ResponseEntity.ok(registeredUser);
+        } catch (AuthenticationException ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Invalid credentials: " + ex.getMessage());
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred: " + ex.getMessage());
+        }
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<LoginResponse> Authenticate(@RequestBody LogindDTO logindDTO){
-        User authenticatedUser = authenticationService.Authenticate(logindDTO);
+    public ResponseEntity<?> Authenticate(@RequestBody LogindDTO logindDTO) {
+        try {
+            User authenticatedUser = authenticationService.Authenticate(logindDTO);
 
-        String jwtToken = jwtService.generateToken(authenticatedUser);
+            String jwtToken = jwtService.generateToken(authenticatedUser);
 
-        LoginResponse loginResponse = LoginResponse.builder().
-                                                    token(jwtToken).
-                                                    expiresIn(jwtService.getJwtExpiration()).
-                                                    build();
+            LoginResponse loginResponse = LoginResponse.builder().token(jwtToken)
+                    .expiresIn(jwtService.getJwtExpiration()).build();
 
-        return ResponseEntity.ok(loginResponse);
+            return ResponseEntity.ok(loginResponse);
+
+        } catch (AuthenticationException ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Invalid credentials: " + ex.getMessage());
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred: " + ex.getMessage());
+        }
     }
 }
