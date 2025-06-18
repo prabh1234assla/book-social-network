@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.fge.jsonpatch.JsonPatch;
 
+import webly.bookstore.backend.DTOs.UserResponseDTO;
 import webly.bookstore.backend.Models.Fee;
 import webly.bookstore.backend.Models.User;
 import webly.bookstore.backend.Models.BaseModel.UserModel;
@@ -55,11 +56,71 @@ public class UserController {
     }
 
     // get yourself
-    @GetMapping("/me")
-    public ResponseEntity<User> authenticatedUser() {
+    @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserResponseDTO> authenticatedUser() {
         User currentUser = getAuthenticatedUser();
 
-        return ResponseEntity.ok(currentUser);
+        UserResponseDTO dto = new UserResponseDTO();
+        dto.setId(currentUser.getId());
+        dto.setUsername(currentUser.getUsername());
+        dto.setEmail(currentUser.getEmail());
+        dto.setRole(currentUser.getRole().toString());
+
+        return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<UserResponseDTO>> getAllUsers() throws Exception {
+        User currentUser = getAuthenticatedUser();
+
+        if (currentUser.getRole() != UserRole.ADMIN) {
+            throw new Exception("Gain admin privileges to see all users!");
+        }
+
+        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteUserById(@PathVariable("id") int id) throws Exception {
+        User currentUser = getAuthenticatedUser();
+
+        if (currentUser.getRole() != UserRole.ADMIN) {
+            throw new Exception("Gain admin privileges to delete user!");
+        }
+        else if (currentUser.getId() == id) {
+            throw new Exception("You Cannot Delete Yourself!");
+        }
+
+        System.out.println("delete hojaavega");
+
+
+        feeService.deleteAllByStudentId(currentUser.getId());
+
+        service.deleteById(id);
+    }
+
+    @DeleteMapping()
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAllUsers() throws Exception {
+        User currentUser = getAuthenticatedUser();
+
+        if (currentUser.getRole() != UserRole.ADMIN) {
+            throw new Exception("Gain admin privileges to delete all users!");
+        }
+
+        List<UserResponseDTO> listOfUserDTOs = service.getAllUsersExceptCurrent(currentUser);
+
+        for (UserResponseDTO response: listOfUserDTOs){
+            System.out.println("bhjdcjdc");
+            feeService.deleteAllByStudentId(response.getId());
+
+            System.out.println("2109i291912");
+
+            service.deleteById(response.getId());
+
+            System.out.println("sdkjs dsdjdsj");
+        }
     }
 
     // // add a fee

@@ -36,7 +36,7 @@ public class AuthenticationService {
 
         if(username.endsWith("_std"))
             role = UserRole.STUDENT;
-        else if(username.startsWith("_fac"))
+        else if(username.endsWith("_fac"))
             role = UserRole.FACULTY;
 
         userRepository.findByUsername(username).ifPresent(user -> { throw new webly.bookstore.backend.exceptions.AuthenticationException("user already exists"); });

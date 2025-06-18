@@ -4,6 +4,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -97,6 +99,10 @@ public class FeeService {
     public void deleteAll() {
         feeRepository.deleteAll();
     }
+
+    public void deleteAllByStudentId(Long studentId){
+        feeRepository.deleteAllByStudentId(studentId);
+    };
 
     private Fee applyPatchToFee(JsonPatch patch, Fee fee) {
         try {

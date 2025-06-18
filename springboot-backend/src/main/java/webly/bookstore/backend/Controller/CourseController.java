@@ -40,6 +40,8 @@ public class CourseController {
             throw new Exception("Gain admin privileges to create a course!");
         }
 
+        System.out.println("excuse me");
+
         return new ResponseEntity<>(service.create(course), HttpStatus.CREATED);
     }
 

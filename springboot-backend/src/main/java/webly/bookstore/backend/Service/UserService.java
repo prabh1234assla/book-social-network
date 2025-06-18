@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -12,6 +13,7 @@ import com.github.fge.jsonpatch.JsonPatch;
 import com.github.fge.jsonpatch.JsonPatchException;
 
 import jakarta.persistence.EntityNotFoundException;
+import webly.bookstore.backend.DTOs.UserResponseDTO;
 import webly.bookstore.backend.Models.User;
 import webly.bookstore.backend.Models.BaseModel.UserModel;
 import webly.bookstore.backend.Repository.UserRepository;
@@ -43,8 +45,15 @@ public class UserService {
         return repository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
-    public List<User> findAll(){
-        return repository.findAll().stream().sorted(Comparator.comparing(User::getId)).toList();
+    public List<UserResponseDTO> findAll(){
+        return repository.findAll().stream().sorted(Comparator.comparing(User::getId)).map(user -> {
+            UserResponseDTO dto = new UserResponseDTO();
+            dto.setId(user.getId());
+            dto.setUsername(user.getUsername());
+            dto.setEmail(user.getEmail());
+            dto.setRole(user.getRole().toString());
+            return dto;
+        }).toList();
     }
 
     public void updateCoursesTaughtById(long id, UserModel user){
@@ -83,12 +92,32 @@ public class UserService {
         return repository.save(userPatched);
     }
 
-    public void deleteById(long id){
+    @Transactional
+    public void deleteById(long id) {
+        if (!repository.existsById(id)) {
+            throw new EntityNotFoundException("User not found with id: " + id);
+        }
         repository.deleteById(id);
     }
 
-    public void deleteAll(){
+    @Transactional
+    public void deleteAll() {
         repository.deleteAll();
+    }
+
+    public List<UserResponseDTO> getAllUsersExceptCurrent(User currentUser) {
+        return repository.findAll().stream()
+            .filter(user -> user.getId() != currentUser.getId()) // exclude current user
+            .map(user -> {
+                UserResponseDTO dto = new UserResponseDTO();
+                dto.setId(user.getId());
+                dto.setUsername(user.getUsername());
+                dto.setEmail(user.getEmail());
+                dto.setRole(user.getRole().toString());
+                return dto;
+            })
+            .sorted(Comparator.comparing(UserResponseDTO::getId)) // optional
+            .toList();
     }
 
     private User applyPatchToUser(JsonPatch patch, User user){
