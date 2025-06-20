@@ -123,6 +123,19 @@ public class UserController {
         }
     }
 
+    @GetMapping(value = "/me/fees", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Set<Fee>> listAllFees() throws Exception {
+        User currentUser = getAuthenticatedUser();
+
+        if (currentUser.getRole() != UserRole.STUDENT) {
+            throw new Exception("Only students have fee tickets assigned under them!");
+        }
+
+        Set<Fee> listOfFees = currentUser.getFees();
+
+        return ResponseEntity.ok(listOfFees);
+    }
+
     // // add a fee
     // @PostMapping("/fee/{id}")
     // public ResponseEntity<Fee> addFee(@PathVariable("id") int id) throws Exception {
