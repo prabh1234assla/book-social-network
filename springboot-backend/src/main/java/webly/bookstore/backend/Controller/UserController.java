@@ -76,8 +76,11 @@ public class UserController {
         if (currentUser.getRole() != UserRole.ADMIN) {
             throw new Exception("Gain admin privileges to delete user!");
         }
-        else if (currentUser.getId() == id) {
-            throw new Exception("You Cannot Delete Yourself!");
+
+        UserDetails userToBeDeleted = service.findById(id);
+
+        if (userToBeDeleted.getRole() == UserRole.ADMIN.toString()) {
+            throw new Exception("Admins can't be Deleted Sorry!!!");
         }
 
         service.deleteById(id);
@@ -92,7 +95,17 @@ public class UserController {
             throw new Exception("Gain admin privileges to delete all users!");
         }
 
-        service.deleteAll();
+        List<UserDetails> userDetails = service.findAll();
+
+        for (UserDetails userDetail: userDetails){
+            if (userDetail.getRole() == UserRole.ADMIN.toString()) {
+                System.out.println("Admins can't be Deleted Sorry!!!");
+            }
+            else {
+                service.deleteById(userDetail.getId());
+            }
+        }
+
     }
 
     // @GetMapping(value = "/me/fees", produces = MediaType.APPLICATION_JSON_VALUE)
