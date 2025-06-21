@@ -1,13 +1,15 @@
 package webly.bookstore.backend.DTOs.UserServiceDTOs;
 
+import lombok.Getter;
 import lombok.Setter;
 import webly.bookstore.backend.Models.User;
 
+
 public class UserDetails {
-    private @Setter long id;
-    private @Setter String role;
-    private @Setter String username;
-    private @Setter String email;
+    private @Getter @Setter long id;
+    private @Getter @Setter String role;
+    private @Getter @Setter String username;
+    private @Getter @Setter String email;
 
     public static UserDetails generaDto(User user){
         UserDetails dto = new UserDetails();

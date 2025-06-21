@@ -2,15 +2,16 @@ package webly.bookstore.backend.DTOs.FeeServiceDTOs;
 
 import java.math.BigDecimal;
 
+import lombok.Getter;
 import lombok.Setter;
 import webly.bookstore.backend.Models.Fee;
 
 public class FeeDetails {
-    private @Setter long id;
-    private @Setter long studentId;
-    private @Setter String feeType;
-    private @Setter BigDecimal amount;
-    private @Setter Boolean isPaid;
+    private @Getter @Setter long id;
+    private @Getter @Setter long studentId;
+    private @Getter @Setter String feeType;
+    private @Getter @Setter BigDecimal amount;
+    private @Getter @Setter Boolean isPaid;
 
     public static FeeDetails generateDTO(Fee fee){
         FeeDetails dto = new FeeDetails();

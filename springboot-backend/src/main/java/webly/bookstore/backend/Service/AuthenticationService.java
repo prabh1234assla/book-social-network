@@ -47,6 +47,8 @@ public class AuthenticationService {
                                     email(registerDTO.getEmail()).
                                     username(username).
                                     password(passwordEncoder.encode(registerDTO.getPassword())).
+                                    isStudentEnrolled(false).
+                                    semester(0).
                                     build();                                    
 
         userRepository.save(registeredUser);
