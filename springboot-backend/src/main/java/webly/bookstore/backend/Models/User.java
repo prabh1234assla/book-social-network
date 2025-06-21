@@ -49,15 +49,17 @@ public class User extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "faculty", fetch = FetchType.LAZY)
     private Set<Course> coursesTaught;
 
-    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
-    private Set<StudentEnrollment> enrollments;
+    @Column(name = "semester", nullable = false)
+    @NotNull(message = "Semester must be specified.")
+    private Integer semester;
+
+    @Column(name = "isStudentEnrolled", nullable = false)
+    @NotNull(message = "if student Enrolled must be specified.")
+    private boolean isStudentEnrolled;
 
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
     @JsonIgnoreProperties("student")
     private Set<Fee> fees;
-
-    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
-    private Set<Marks> marks;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

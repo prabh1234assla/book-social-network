@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import webly.bookstore.backend.DTOs.LogindDTO;
 import webly.bookstore.backend.DTOs.RegisterDTO;
+import webly.bookstore.backend.DTOs.ResponseDTOs.RegisterResponseDTO;
 import webly.bookstore.backend.Models.User;
 import webly.bookstore.backend.Models.BaseModel.LoginResponse;
 import webly.bookstore.backend.Service.AuthenticationService;
@@ -32,8 +33,8 @@ public class AuthenticationController {
     @PostMapping("/signup")
     public ResponseEntity<?> Register(@RequestBody RegisterDTO registerDTO) {
         try {
-            User registeredUser = authenticationService.Signup(registerDTO);
-            return ResponseEntity.ok(registeredUser);
+            RegisterResponseDTO response = authenticationService.Signup(registerDTO);
+            return ResponseEntity.ok(response);
         } catch (AuthenticationException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body("Invalid credentials: " + ex.getMessage());

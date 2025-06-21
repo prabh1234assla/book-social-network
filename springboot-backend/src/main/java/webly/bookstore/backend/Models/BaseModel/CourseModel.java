@@ -1,6 +1,6 @@
 package webly.bookstore.backend.Models.BaseModel;
 
-import java.util.Set;
+import java.math.BigDecimal;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +11,5 @@ public class CourseModel {
     private long id;
     private long facultyId;
     private String courseName;
-
-    private Set<StudentEnrollmentModel> enrollments;
-    private Set<MarksModel> marks;
+    private BigDecimal marks;
 }

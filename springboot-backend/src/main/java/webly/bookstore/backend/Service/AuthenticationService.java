@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import webly.bookstore.backend.DTOs.LogindDTO;
 import webly.bookstore.backend.DTOs.RegisterDTO;
+import webly.bookstore.backend.DTOs.ResponseDTOs.RegisterResponseDTO;
 import webly.bookstore.backend.Models.User;
 import webly.bookstore.backend.Models.Utils.UserRole;
 import webly.bookstore.backend.Repository.UserRepository;
@@ -29,7 +30,7 @@ public class AuthenticationService {
         this.authenticationManager = authenticationManager;
     }
 
-    public User Signup(RegisterDTO registerDTO){
+    public RegisterResponseDTO Signup(RegisterDTO registerDTO){
 
         String username = registerDTO.getUsername();
         UserRole role = UserRole.ADMIN;
@@ -48,7 +49,16 @@ public class AuthenticationService {
                                     password(passwordEncoder.encode(registerDTO.getPassword())).
                                     build();                                    
 
-        return userRepository.save(registeredUser);
+        userRepository.save(registeredUser);
+
+        RegisterResponseDTO dto = new RegisterResponseDTO();
+
+        dto.setId(registeredUser.getId());
+        dto.setEmail(registeredUser.getEmail());
+        dto.setUsername(registeredUser.getUsername());
+        dto.setRole(registeredUser.getRole().toString());
+
+        return dto;
     }
 
     public User Authenticate(LogindDTO logindDTO){

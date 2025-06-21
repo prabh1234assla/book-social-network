@@ -14,6 +14,7 @@ import com.github.fge.jsonpatch.JsonPatch;
 import com.github.fge.jsonpatch.JsonPatchException;
 
 import jakarta.persistence.EntityNotFoundException;
+import webly.bookstore.backend.DTOs.CourseServiceDTOs.CourseDetails;
 import webly.bookstore.backend.Models.Course;
 import webly.bookstore.backend.Models.BaseModel.CourseModel;
 import webly.bookstore.backend.Models.User;
@@ -33,53 +34,53 @@ public class CourseService {
     }
 
     @Transactional
-    public Course create(CourseModel courseModel) {
+    public CourseDetails create(CourseModel courseModel) {
         User faculty = userRepository.findById(courseModel.getFacultyId())
                 .orElseThrow(() -> new EntityNotFoundException("Faculty not found with id: " + courseModel.getFacultyId()));
 
         Course courseToSave = Course.builder()
                 .faculty(faculty)
                 .courseName(courseModel.getCourseName())
-                .enrollments(null) // These will be managed separately
-                .marks(null)       // These will be managed separately
+                .marks(courseModel.getMarks())
                 .build();
 
-        return courseRepository.save(courseToSave);
+        return CourseDetails.generateDTO(courseRepository.save(courseToSave));
     }
 
-    public Course findById(long id) {
-        return courseRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Course not found with id: " + id));
+    public CourseDetails findById(long id) {
+        return CourseDetails.generateDTO(courseRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Course not found with id: " + id)));
     }
 
-    public List<Course> findAll() {
+    public List<CourseDetails> findAll() {
         return courseRepository.findAll().stream()
                 .sorted(Comparator.comparing(Course::getId))
+                .map(course -> CourseDetails.generateDTO(course))
                 .collect(Collectors.toList());
     }
 
-    @Transactional
-    public void updateCourseById(long id, CourseModel courseModel) {
-        Course existingCourse = courseRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Course not found with id: " + id));
+    // @Transactional
+    // public void updateCourseById(long id, CourseModel courseModel) {
+    //     Course existingCourse = courseRepository.findById(id)
+    //             .orElseThrow(() -> new EntityNotFoundException("Course not found with id: " + id));
 
-        User faculty = userRepository.findById(courseModel.getFacultyId())
-                .orElseThrow(() -> new EntityNotFoundException("Faculty not found with id: " + courseModel.getFacultyId()));
+    //     User faculty = userRepository.findById(courseModel.getFacultyId())
+    //             .orElseThrow(() -> new EntityNotFoundException("Faculty not found with id: " + courseModel.getFacultyId()));
 
-        existingCourse.setFaculty(faculty);
-        existingCourse.setCourseName(courseModel.getCourseName());
+    //     existingCourse.setFaculty(faculty);
+    //     existingCourse.setCourseName(courseModel.getCourseName());
 
-        courseRepository.save(existingCourse);
-    }
+    //     courseRepository.save(existingCourse);
+    // }
 
-    @Transactional
-    public Course patchOne(long id, JsonPatch patch) {
-        Course course = courseRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Course not found with id: " + id));
+    // @Transactional
+    // public Course patchOne(long id, JsonPatch patch) {
+    //     Course course = courseRepository.findById(id)
+    //             .orElseThrow(() -> new EntityNotFoundException("Course not found with id: " + id));
 
-        Course coursePatched = applyPatchToCourse(patch, course);
-        return courseRepository.save(coursePatched);
-    }
+    //     Course coursePatched = applyPatchToCourse(patch, course);
+    //     return courseRepository.save(coursePatched);
+    // }
 
     @Transactional
     public void deleteById(long id) {
@@ -94,12 +95,12 @@ public class CourseService {
         courseRepository.deleteAll();
     }
 
-    private Course applyPatchToCourse(JsonPatch patch, Course course) {
-        try {
-            JsonNode patched = patch.apply(objectMapper.convertValue(course, JsonNode.class));
-            return objectMapper.treeToValue(patched, Course.class);
-        } catch (JsonPatchException | JsonProcessingException e) {
-            throw new RuntimeException("Failed to apply JSON patch: " + e.getMessage(), e);
-        }
-    }
+    // private Course applyPatchToCourse(JsonPatch patch, Course course) {
+    //     try {
+    //         JsonNode patched = patch.apply(objectMapper.convertValue(course, JsonNode.class));
+    //         return objectMapper.treeToValue(patched, Course.class);
+    //     } catch (JsonPatchException | JsonProcessingException e) {
+    //         throw new RuntimeException("Failed to apply JSON patch: " + e.getMessage(), e);
+    //     }
+    // }
 }

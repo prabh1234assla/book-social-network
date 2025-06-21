@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.github.fge.jsonpatch.JsonPatch;
 
+import webly.bookstore.backend.DTOs.CourseServiceDTOs.CourseDetails;
 import webly.bookstore.backend.Models.Course;
 import webly.bookstore.backend.Models.BaseModel.CourseModel;
 import webly.bookstore.backend.Models.User;
@@ -33,7 +34,7 @@ public class CourseController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Course> createCourse(@RequestBody CourseModel course) throws Exception {
+    public ResponseEntity<CourseDetails> createCourse(@RequestBody CourseModel course) throws Exception {
         User currentUser = getAuthenticatedUser();
 
         if (currentUser.getRole() != UserRole.ADMIN) {
@@ -46,25 +47,25 @@ public class CourseController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Course>> getAllCourses() {
+    public ResponseEntity<List<CourseDetails>> getAllCourses() {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Course> getOneCourse(@PathVariable("id") int id) {
+    public ResponseEntity<CourseDetails> getOneCourse(@PathVariable("id") int id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
-    @PutMapping("/update/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public void updateOneCourse(@PathVariable("id") int id, @RequestBody CourseModel course) {
-        service.updateCourseById(id, course);
-    }
+    // @PutMapping("/update/{id}")
+    // @ResponseStatus(HttpStatus.OK)
+    // public void updateOneCourse(@PathVariable("id") int id, @RequestBody CourseModel course) {
+    //     service.updateCourseById(id, course);
+    // }
 
-    @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Course> patchOneCourse(@PathVariable("id") int id, @RequestBody JsonPatch patch) {
-        return new ResponseEntity<>(service.patchOne(id, patch), HttpStatus.OK);
-    }
+    // @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    // public ResponseEntity<Course> patchOneCourse(@PathVariable("id") int id, @RequestBody JsonPatch patch) {
+    //     return new ResponseEntity<>(service.patchOne(id, patch), HttpStatus.OK);
+    // }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
