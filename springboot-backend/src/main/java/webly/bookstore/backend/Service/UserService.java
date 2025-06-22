@@ -17,9 +17,13 @@ import com.github.fge.jsonpatch.JsonPatchException;
 import jakarta.persistence.EntityNotFoundException;
 import webly.bookstore.backend.DTOs.CourseServiceDTOs.CourseDetails;
 import webly.bookstore.backend.DTOs.FeeServiceDTOs.FeeDetails;
+import webly.bookstore.backend.DTOs.MarksServiceDTOs.MarksDetails;
+import webly.bookstore.backend.DTOs.StudentEnrollmentServiceDTOs.StudentEnrollmentDetails;
 import webly.bookstore.backend.DTOs.UserServiceDTOs.UserDetails;
 import webly.bookstore.backend.Models.Course;
 import webly.bookstore.backend.Models.Fee;
+import webly.bookstore.backend.Models.Marks;
+import webly.bookstore.backend.Models.StudentEnrollment;
 import webly.bookstore.backend.Models.User;
 import webly.bookstore.backend.Repository.UserRepository;
 
@@ -66,6 +70,24 @@ public class UserService {
         List<FeeDetails> feeDetails = fees.stream().map(fee -> FeeDetails.generateDTO(fee)).collect(Collectors.toList());
 
         return feeDetails;
+    }
+
+    public List<StudentEnrollmentDetails> findAllEnrollments(long id) throws EntityNotFoundException{
+        
+        User user = repository.findById(id).orElseThrow(EntityNotFoundException::new);
+        Set<StudentEnrollment> enrollments = user.getStudentEnrollments();
+        List<StudentEnrollmentDetails> enrollmentDetails = enrollments.stream().map(enrollment -> StudentEnrollmentDetails.generateDTO(enrollment)).collect(Collectors.toList());
+
+        return enrollmentDetails;
+    }
+
+    public List<MarksDetails> findAllMarks(long id) throws EntityNotFoundException{
+        
+        User user = repository.findById(id).orElseThrow(EntityNotFoundException::new);
+        Set<Marks> marks = user.getMarks();
+        List<MarksDetails> marksDetails = marks.stream().map(mark -> MarksDetails.generateDTO(mark)).collect(Collectors.toList());
+
+        return marksDetails;
     }
 
     // public User patchOne(long id, JsonPatch patch){

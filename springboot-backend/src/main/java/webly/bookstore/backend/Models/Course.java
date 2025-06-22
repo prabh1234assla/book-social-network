@@ -29,13 +29,11 @@ public class Course extends BaseEntity {
     @JoinColumn(name = "faculty_id", nullable = false)
     private User faculty;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "studentEnrollment_id", nullable = false)
-    private StudentEnrollment studentEnrollment;
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    private Set<StudentEnrollment> studentEnrollment;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "marks_id", nullable = false)
-    private Marks marks;
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    private Set<Marks> marks;
 
     @ManyToMany
     @JoinTable(

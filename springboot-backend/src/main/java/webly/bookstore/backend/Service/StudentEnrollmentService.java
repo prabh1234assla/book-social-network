@@ -42,14 +42,21 @@ public class StudentEnrollmentService {
         User student = userRepository.findById(enrollmentModel.getStudentId())
                 .orElseThrow(() -> new EntityNotFoundException("Student not found with id: " + enrollmentModel.getStudentId()));
 
+        System.out.println("dsnmdsnndsds");
+
         Course course = courseRepository.findById(enrollmentModel.getCourseId())
                 .orElseThrow(() -> new EntityNotFoundException("Course not found with id: " + enrollmentModel.getCourseId()));
+
+        System.out.println("sdndsnsdnsdnsnd");
 
         StudentEnrollment enrollmentToSave = StudentEnrollment.builder()
                 .studentEnrolled(student)
                 .course(course)
-                .isRegistered(false)
+                .isRegistered(enrollmentModel.getIsRegistered())
                 .build();
+
+
+        System.out.println("enrollment");
 
         return StudentEnrollmentDetails.generateDTO(enrollmentRepository.save(enrollmentToSave));
     }

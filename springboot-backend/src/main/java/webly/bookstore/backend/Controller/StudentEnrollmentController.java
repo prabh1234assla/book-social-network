@@ -39,6 +39,7 @@ public class StudentEnrollmentController {
         if (currentUser.getRole() != UserRole.ADMIN) {
             throw new Exception("Gain admin privileges to enroll students!");
         }
+        System.out.println("ndnddndnmddnmdnm");
         return new ResponseEntity<>(service.create(enrollment), HttpStatus.CREATED);
     }
 

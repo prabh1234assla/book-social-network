@@ -21,11 +21,12 @@ public class StudentEnrollment extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
-    @JsonIgnoreProperties("studentEnrollments")
+    @JsonIgnoreProperties("studentEnrollment")
     private User studentEnrolled;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id", nullable = false)
+    @JsonIgnoreProperties("marks")
     private Course course;
 
     @Column(name = "isRegistered", nullable = false)

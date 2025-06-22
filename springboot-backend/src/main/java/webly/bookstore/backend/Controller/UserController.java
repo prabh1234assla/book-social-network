@@ -23,6 +23,8 @@ import com.github.fge.jsonpatch.JsonPatch;
 
 import webly.bookstore.backend.DTOs.CourseServiceDTOs.CourseDetails;
 import webly.bookstore.backend.DTOs.FeeServiceDTOs.FeeDetails;
+import webly.bookstore.backend.DTOs.MarksServiceDTOs.MarksDetails;
+import webly.bookstore.backend.DTOs.StudentEnrollmentServiceDTOs.StudentEnrollmentDetails;
 import webly.bookstore.backend.DTOs.UserServiceDTOs.UserDetails;
 import webly.bookstore.backend.Models.Fee;
 import webly.bookstore.backend.Models.User;
@@ -81,6 +83,22 @@ public class UserController {
         User currentUser = getAuthenticatedUser();
 
         return ResponseEntity.ok(service.findAllFees(currentUser.getId()));
+    }
+
+    // get all enrollments
+    @GetMapping(value = "/me/enrollments", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<StudentEnrollmentDetails>> listAllEnrollments() {
+        User currentUser = getAuthenticatedUser();
+
+        return ResponseEntity.ok(service.findAllEnrollments(currentUser.getId()));
+    }
+
+    // get all marks
+    @GetMapping(value = "/me/marks", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<MarksDetails>> listMarks() {
+        User currentUser = getAuthenticatedUser();
+
+        return ResponseEntity.ok(service.findAllMarks(currentUser.getId()));
     }
 
     @GetMapping()
