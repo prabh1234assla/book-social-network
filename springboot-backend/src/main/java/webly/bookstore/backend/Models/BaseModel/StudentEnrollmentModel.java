@@ -9,6 +9,5 @@ public class StudentEnrollmentModel {
     private long id;
     private long studentId;
     private long courseId;
-    private Integer semester;
     private Boolean isRegistered;
 }

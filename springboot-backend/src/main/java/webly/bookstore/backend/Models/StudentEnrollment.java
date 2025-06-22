@@ -1,5 +1,7 @@
 package webly.bookstore.backend.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import lombok.*;
 import webly.bookstore.backend.Models.Utils.BaseEntity;
@@ -19,14 +21,12 @@ public class StudentEnrollment extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
-    private User student;
+    @JsonIgnoreProperties("studentEnrollments")
+    private User studentEnrolled;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
-
-    @Column(name = "semester", nullable = false)
-    private Integer semester;
 
     @Column(name = "isRegistered", nullable = false)
     private boolean isRegistered;

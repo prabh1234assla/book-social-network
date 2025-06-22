@@ -14,6 +14,7 @@ import com.github.fge.jsonpatch.JsonPatch;
 import com.github.fge.jsonpatch.JsonPatchException;
 
 import jakarta.persistence.EntityNotFoundException;
+import webly.bookstore.backend.DTOs.MarksServiceDTOs.MarksDetails;
 import webly.bookstore.backend.Models.Course;
 import webly.bookstore.backend.Models.Marks;
 import webly.bookstore.backend.Models.BaseModel.MarksModel;
@@ -37,7 +38,7 @@ public class MarksService {
     }
 
     @Transactional
-    public Marks create(MarksModel marksModel) {
+    public MarksDetails create(MarksModel marksModel) {
         User student = userRepository.findById(marksModel.getStudentId())
                 .orElseThrow(() -> new EntityNotFoundException("Student not found with id: " + marksModel.getStudentId()));
 
@@ -45,53 +46,53 @@ public class MarksService {
                 .orElseThrow(() -> new EntityNotFoundException("Course not found with id: " + marksModel.getCourseId()));
 
         Marks marksToSave = Marks.builder()
-                .student(student)
+                .candidate(student)
                 .course(course)
-                .semester(marksModel.getSemester())
                 .marks(marksModel.getMarks())
                 .build();
 
-        return marksRepository.save(marksToSave);
+        return MarksDetails.generateDTO(marksRepository.save(marksToSave));
     }
 
-    public Marks findById(long id) {
-        return marksRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Marks record not found with id: " + id));
+    public MarksDetails findById(long id) {
+        return MarksDetails.generateDTO(marksRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Marks record not found with id: " + id)));
     }
 
-    public List<Marks> findAll() {
+    public List<MarksDetails> findAll() {
         return marksRepository.findAll().stream()
                 .sorted(Comparator.comparing(Marks::getId))
+                .map(marks -> MarksDetails.generateDTO(marks))
                 .collect(Collectors.toList());
     }
 
-    @Transactional
-    public void updateMarksById(long id, MarksModel marksModel) {
-        Marks existingMarks = marksRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Marks record not found with id: " + id));
+    // @Transactional
+    // public void updateMarksById(long id, MarksModel marksModel) {
+    //     Marks existingMarks = marksRepository.findById(id)
+    //             .orElseThrow(() -> new EntityNotFoundException("Marks record not found with id: " + id));
 
-        User student = userRepository.findById(marksModel.getStudentId())
-                .orElseThrow(() -> new EntityNotFoundException("Student not found with id: " + marksModel.getStudentId()));
+    //     User student = userRepository.findById(marksModel.getStudentId())
+    //             .orElseThrow(() -> new EntityNotFoundException("Student not found with id: " + marksModel.getStudentId()));
 
-        Course course = courseRepository.findById(marksModel.getCourseId())
-                .orElseThrow(() -> new EntityNotFoundException("Course not found with id: " + marksModel.getCourseId()));
+    //     Course course = courseRepository.findById(marksModel.getCourseId())
+    //             .orElseThrow(() -> new EntityNotFoundException("Course not found with id: " + marksModel.getCourseId()));
 
-        existingMarks.setStudent(student);
-        existingMarks.setCourse(course);
-        existingMarks.setSemester(marksModel.getSemester());
-        existingMarks.setMarks(marksModel.getMarks());
+    //     existingMarks.setStudent(student);
+    //     existingMarks.setCourse(course);
+    //     existingMarks.setSemester(marksModel.getSemester());
+    //     existingMarks.setMarks(marksModel.getMarks());
 
-        marksRepository.save(existingMarks);
-    }
+    //     marksRepository.save(existingMarks);
+    // }
 
-    @Transactional
-    public Marks patchOne(long id, JsonPatch patch) {
-        Marks marks = marksRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Marks record not found with id: " + id));
+    // @Transactional
+    // public Marks patchOne(long id, JsonPatch patch) {
+    //     Marks marks = marksRepository.findById(id)
+    //             .orElseThrow(() -> new EntityNotFoundException("Marks record not found with id: " + id));
 
-        Marks marksPatched = applyPatchToMarks(patch, marks);
-        return marksRepository.save(marksPatched);
-    }
+    //     Marks marksPatched = applyPatchToMarks(patch, marks);
+    //     return marksRepository.save(marksPatched);
+    // }
 
     @Transactional
     public void deleteById(long id) {
@@ -106,12 +107,12 @@ public class MarksService {
         marksRepository.deleteAll();
     }
 
-    private Marks applyPatchToMarks(JsonPatch patch, Marks marks) {
-        try {
-            JsonNode patched = patch.apply(objectMapper.convertValue(marks, JsonNode.class));
-            return objectMapper.treeToValue(patched, Marks.class);
-        } catch (JsonPatchException | JsonProcessingException e) {
-            throw new RuntimeException("Failed to apply JSON patch: " + e.getMessage(), e);
-        }
-    }
+    // private Marks applyPatchToMarks(JsonPatch patch, Marks marks) {
+    //     try {
+    //         JsonNode patched = patch.apply(objectMapper.convertValue(marks, JsonNode.class));
+    //         return objectMapper.treeToValue(patched, Marks.class);
+    //     } catch (JsonPatchException | JsonProcessingException e) {
+    //         throw new RuntimeException("Failed to apply JSON patch: " + e.getMessage(), e);
+    //     }
+    // }
 }

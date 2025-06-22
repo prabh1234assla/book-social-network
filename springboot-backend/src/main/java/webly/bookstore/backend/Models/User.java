@@ -61,6 +61,14 @@ public class User extends BaseEntity implements UserDetails {
     @JsonIgnoreProperties("student")
     private Set<Fee> fees;
 
+    @OneToMany(mappedBy = "studentEnrolled", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("studentEnrolled")
+    private Set<StudentEnrollment> studentEnrollments;
+
+    @OneToMany(mappedBy = "candidate", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("candidate")
+    private Set<Marks> marks;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();

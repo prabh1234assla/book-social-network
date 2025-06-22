@@ -29,6 +29,14 @@ public class Course extends BaseEntity {
     @JoinColumn(name = "faculty_id", nullable = false)
     private User faculty;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "studentEnrollment_id", nullable = false)
+    private StudentEnrollment studentEnrollment;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "marks_id", nullable = false)
+    private Marks marks;
+
     @ManyToMany
     @JoinTable(
         name = "course_students",
@@ -36,7 +44,4 @@ public class Course extends BaseEntity {
         inverseJoinColumns = @JoinColumn(name = "student_id")
     )
     private Set<User> students;
-
-    @Column(name = "marks", nullable = false)
-    private BigDecimal marks;
 }

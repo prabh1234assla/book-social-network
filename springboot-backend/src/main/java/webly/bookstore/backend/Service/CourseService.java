@@ -28,12 +28,17 @@ import webly.bookstore.backend.Repository.UserRepository;
 public class CourseService {
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
+    private final MarksService marksService;
+    private final StudentEnrollmentService StudentEnrollmentService;
+
     private final ObjectMapper objectMapper;
 
-    public CourseService(CourseRepository courseRepository, UserRepository userRepository, ObjectMapper objectMapper) {
+    public CourseService(CourseRepository courseRepository, UserRepository userRepository, ObjectMapper objectMapper, MarksService marksService, StudentEnrollmentService StudentEnrollmentService) {
         this.courseRepository = courseRepository;
         this.userRepository = userRepository;
         this.objectMapper = objectMapper;
+        this.marksService = marksService;
+        this.StudentEnrollmentService = StudentEnrollmentService;
     }
 
     @Transactional
@@ -53,11 +58,15 @@ public class CourseService {
 
             students.add(student);
         }
+        
+
+        System.out.println("dsnjdnd");
 
         Course courseToSave = Course.builder()
                 .faculty(faculty)
                 .courseName(courseModel.getCourseName())
-                .marks(courseModel.getMarks())
+                .studentEnrollment(null)
+                .marks(null)
                 .students(students)
                 .build();
 

@@ -3,6 +3,8 @@ import webly.bookstore.backend.Models.Utils.BaseEntity;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,14 +23,13 @@ public class Marks extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id")
-    private User student;
+    @JsonIgnoreProperties("marks")
+    private User candidate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
+    @JsonIgnoreProperties("marks")
     private Course course;
-
-    @Column(name = "semester", nullable = false)
-    private Integer semester;
 
     @Column(name = "marks", nullable = false)
     private BigDecimal marks;
