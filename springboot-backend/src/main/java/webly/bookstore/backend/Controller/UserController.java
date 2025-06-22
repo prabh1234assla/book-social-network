@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.fge.jsonpatch.JsonPatch;
 
 import webly.bookstore.backend.DTOs.CourseServiceDTOs.CourseDetails;
+import webly.bookstore.backend.DTOs.FeeServiceDTOs.FeeDetails;
 import webly.bookstore.backend.DTOs.UserServiceDTOs.UserDetails;
 import webly.bookstore.backend.Models.Fee;
 import webly.bookstore.backend.Models.User;
@@ -59,11 +60,27 @@ public class UserController {
     }
 
     // get all courses under you
-    @GetMapping(value = "/me/courses", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<CourseDetails>> listAllCourses() {
+    @GetMapping(value = "/me/courseStudied", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<CourseDetails>> listAllCoursesStudied() {
         User currentUser = getAuthenticatedUser();
 
         return ResponseEntity.ok(service.findAllCoursesAssociated(currentUser.getId()));
+    }
+
+    // get all courses taught by me
+    @GetMapping(value = "/me/courseTaught", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<CourseDetails>> listAllCoursesTaught() {
+        User currentUser = getAuthenticatedUser();
+
+        return ResponseEntity.ok(courseService.findAllByFacultyId(currentUser.getId()));
+    }
+
+    // get all fees
+    @GetMapping(value = "/me/fees", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<FeeDetails>> listAllFees() {
+        User currentUser = getAuthenticatedUser();
+
+        return ResponseEntity.ok(service.findAllFees(currentUser.getId()));
     }
 
     @GetMapping()

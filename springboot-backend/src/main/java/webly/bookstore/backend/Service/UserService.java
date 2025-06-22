@@ -16,6 +16,7 @@ import com.github.fge.jsonpatch.JsonPatchException;
 
 import jakarta.persistence.EntityNotFoundException;
 import webly.bookstore.backend.DTOs.CourseServiceDTOs.CourseDetails;
+import webly.bookstore.backend.DTOs.FeeServiceDTOs.FeeDetails;
 import webly.bookstore.backend.DTOs.UserServiceDTOs.UserDetails;
 import webly.bookstore.backend.Models.Course;
 import webly.bookstore.backend.Models.Fee;
@@ -58,6 +59,14 @@ public class UserService {
         return courseDetails;
     }
 
+    public List<FeeDetails> findAllFees(long id) throws EntityNotFoundException{
+        
+        User user = repository.findById(id).orElseThrow(EntityNotFoundException::new);
+        Set<Fee> fees = user.getFees();
+        List<FeeDetails> feeDetails = fees.stream().map(fee -> FeeDetails.generateDTO(fee)).collect(Collectors.toList());
+
+        return feeDetails;
+    }
 
     // public User patchOne(long id, JsonPatch patch){
     //     User user = repository.findById(id).orElseThrow(EntityNotFoundException::new);
