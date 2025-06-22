@@ -17,6 +17,7 @@ public class CourseDetails {
     private @Getter @Setter long facultyId;
     private @Getter @Setter String courseName;
     private @Getter @Setter Set<Long> studentsId;
+    private @Getter @Setter Integer credits;
 
     public static CourseDetails generateDTO(Course course){
         CourseDetails dto = new CourseDetails();
@@ -24,6 +25,7 @@ public class CourseDetails {
         dto.setCourseName(course.getCourseName());
         dto.setId(course.getId());
         dto.setFacultyId(course.getFaculty().getId());
+        dto.setCredits(course.getCredits());
 
         Set<User> students = course.getStudents();
         Set<Long> studentsId = new HashSet<>();

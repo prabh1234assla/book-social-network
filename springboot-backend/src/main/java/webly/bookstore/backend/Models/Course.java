@@ -25,6 +25,9 @@ public class Course extends BaseEntity {
     @Column(name = "courseName", nullable = false)
     private String courseName;
 
+    @Column(name = "credits", nullable = false)
+    private Integer credits;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "faculty_id", nullable = false)
     private User faculty;

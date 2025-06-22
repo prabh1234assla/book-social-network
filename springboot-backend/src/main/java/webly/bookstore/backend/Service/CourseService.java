@@ -65,8 +65,7 @@ public class CourseService {
         Course courseToSave = Course.builder()
                 .faculty(faculty)
                 .courseName(courseModel.getCourseName())
-                .studentEnrollment(null)
-                .marks(null)
+                .credits(courseModel.getCredits())
                 .students(students)
                 .build();
 

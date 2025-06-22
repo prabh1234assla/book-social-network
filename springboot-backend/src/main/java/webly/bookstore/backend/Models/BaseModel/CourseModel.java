@@ -12,6 +12,7 @@ public class CourseModel {
     private long id;
     private long facultyId;
     private String courseName;
+    private Integer credits;
     private BigDecimal marks;
     private Set<Long> studentsId;
 }
