@@ -56,6 +56,11 @@ public class CourseController {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/faculty/{id}")
+    public ResponseEntity<List<CourseDetails>> getCoursesTaughtByFaculty(@PathVariable("id") int id) {
+        return new ResponseEntity<>(service.findAllByFacultyId(id), HttpStatus.OK);
+    }
+
     // @PutMapping("/update/{id}")
     // @ResponseStatus(HttpStatus.OK)
     // public void updateOneCourse(@PathVariable("id") int id, @RequestBody CourseModel course) {

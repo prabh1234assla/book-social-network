@@ -59,6 +59,13 @@ public class CourseService {
                 .collect(Collectors.toList());
     }
 
+    public List<CourseDetails> findAllByFacultyId(long id) {
+        return courseRepository.listCoursesTaughtByGivenFaculty(id).stream()
+                .sorted(Comparator.comparing(Course::getId))
+                .map(course -> CourseDetails.generateDTO(course))
+                .collect(Collectors.toList());
+    }
+
     // @Transactional
     // public void updateCourseById(long id, CourseModel courseModel) {
     //     Course existingCourse = courseRepository.findById(id)

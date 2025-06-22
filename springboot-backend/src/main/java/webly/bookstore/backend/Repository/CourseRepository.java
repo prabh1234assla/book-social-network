@@ -1,5 +1,6 @@
 package webly.bookstore.backend.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,6 +21,11 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     @Transactional
     @Query(value = "UPDATE course SET faculty_id = ?1, course_name = ?2 WHERE id = ?3", nativeQuery = true)
     void updateCourseById(@PathVariable("id") Long id, @RequestBody CourseModel model);
+
+    @Modifying
+    @Transactional
+    @Query(value = "SELECT * FROM course WHERE faculty_id = :id", nativeQuery = true)
+    List<Course> listCoursesTaughtByGivenFaculty(@PathVariable("id") Long id);
 
     @Transactional
     Optional<Course> findById(Long id);
