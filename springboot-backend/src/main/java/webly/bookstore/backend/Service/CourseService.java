@@ -1,7 +1,10 @@
 package webly.bookstore.backend.Service;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -38,10 +41,24 @@ public class CourseService {
         User faculty = userRepository.findById(courseModel.getFacultyId())
                 .orElseThrow(() -> new EntityNotFoundException("Faculty not found with id: " + courseModel.getFacultyId()));
 
+        Set<Long> studentsId = courseModel.getStudentsId();
+        System.out.println(studentsId);
+        Set<User> students = new HashSet<>();
+
+        for (Long id: studentsId){
+            User student = userRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Student not found with id: " + id)); 
+
+            System.out.println(student);
+
+            students.add(student);
+        }
+
         Course courseToSave = Course.builder()
                 .faculty(faculty)
                 .courseName(courseModel.getCourseName())
                 .marks(courseModel.getMarks())
+                .students(students)
                 .build();
 
         return CourseDetails.generateDTO(courseRepository.save(courseToSave));

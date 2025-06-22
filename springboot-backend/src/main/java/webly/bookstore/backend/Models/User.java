@@ -46,7 +46,7 @@ public class User extends BaseEntity implements UserDetails {
     @NotNull(message = "Password must be specified.")
     private String password;
 
-    @OneToMany(mappedBy = "faculty", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "students", fetch = FetchType.LAZY)
     private Set<Course> coursesTaught;
 
     @Column(name = "semester", nullable = false)

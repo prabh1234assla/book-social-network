@@ -29,6 +29,14 @@ public class Course extends BaseEntity {
     @JoinColumn(name = "faculty_id", nullable = false)
     private User faculty;
 
+    @ManyToMany
+    @JoinTable(
+        name = "course_students",
+        joinColumns = @JoinColumn(name = "course_id"),
+        inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
+    private Set<User> students;
+
     @Column(name = "marks", nullable = false)
     private BigDecimal marks;
 }

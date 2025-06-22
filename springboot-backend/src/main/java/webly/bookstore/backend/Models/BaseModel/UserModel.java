@@ -20,6 +20,5 @@ public class UserModel {
     private String password;
     private Integer semester;
     private boolean isStudentEnrolled;
-    private Set<CourseModel> coursesTaught;
-    private Set<FeeModel> fees;
+    
 }

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.fge.jsonpatch.JsonPatch;
 
+import webly.bookstore.backend.DTOs.CourseServiceDTOs.CourseDetails;
 import webly.bookstore.backend.DTOs.UserServiceDTOs.UserDetails;
 import webly.bookstore.backend.Models.Fee;
 import webly.bookstore.backend.Models.User;
@@ -55,6 +56,14 @@ public class UserController {
         User currentUser = getAuthenticatedUser();
 
         return ResponseEntity.ok(UserDetails.generaDto(currentUser));
+    }
+
+    // get all courses under you
+    @GetMapping(value = "/me/courses", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<CourseDetails>> listAllCourses() {
+        User currentUser = getAuthenticatedUser();
+
+        return ResponseEntity.ok(service.findAllCoursesAssociated(currentUser.getId()));
     }
 
     @GetMapping()
