@@ -11,7 +11,6 @@ import webly.bookstore.backend.Models.Utils.FeeType;
 public class FeeModel {
     private long id;
     private long studentId;
-    private Integer semester;
     private FeeType feeType;
     private BigDecimal amount;
     private Boolean isPaid;

@@ -21,22 +21,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.fge.jsonpatch.JsonPatch;
 
-import webly.bookstore.backend.Models.Book;
+import webly.bookstore.backend.DTOs.CourseServiceDTOs.CourseDetails;
+import webly.bookstore.backend.DTOs.FeeServiceDTOs.FeeDetails;
+import webly.bookstore.backend.DTOs.UserServiceDTOs.UserDetails;
+import webly.bookstore.backend.Models.Fee;
 import webly.bookstore.backend.Models.User;
-import webly.bookstore.backend.Models.UserModel;
-import webly.bookstore.backend.Models.UserRole;
-import webly.bookstore.backend.Service.BookService;
+import webly.bookstore.backend.Models.BaseModel.UserModel;
+import webly.bookstore.backend.Models.Utils.UserRole;
+import webly.bookstore.backend.Service.CourseService;
+import webly.bookstore.backend.Service.FeeService;
 import webly.bookstore.backend.Service.UserService;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
     private final UserService service;
-    private final BookService bookService;
+    private final CourseService courseService;
+    private final FeeService feeService; 
 
-    public UserController(UserService service, BookService bookService) {
+    public UserController(UserService service, CourseService courseService, FeeService feeService) {
         this.service = service;
-        this.bookService = bookService;
+        this.courseService = courseService;
+        this.feeService = feeService;
     }
 
     private User getAuthenticatedUser() {
@@ -46,78 +52,138 @@ public class UserController {
     }
 
     // get yourself
-    @GetMapping("/me")
-    public ResponseEntity<User> authenticatedUser() {
+    @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDetails> authenticatedUser() {
         User currentUser = getAuthenticatedUser();
 
-        return ResponseEntity.ok(currentUser);
+        return ResponseEntity.ok(UserDetails.generaDto(currentUser));
     }
 
-    // add a book
-    @PostMapping("/book/{id}")
-    public ResponseEntity<Book> addBook(@PathVariable("id") int id) throws Exception {
+    // get all courses under you
+    @GetMapping(value = "/me/courseStudied", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<CourseDetails>> listAllCoursesStudied() {
         User currentUser = getAuthenticatedUser();
 
-        if (currentUser.getRole() == UserRole.ADMIN) {
-            throw new Exception("Gain user priveleges to borrow a book!!!");
+        return ResponseEntity.ok(service.findAllCoursesAssociated(currentUser.getId()));
+    }
+
+    // get all courses taught by me
+    @GetMapping(value = "/me/courseTaught", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<CourseDetails>> listAllCoursesTaught() {
+        User currentUser = getAuthenticatedUser();
+
+        return ResponseEntity.ok(courseService.findAllByFacultyId(currentUser.getId()));
+    }
+
+    // get all fees
+    @GetMapping(value = "/me/fees", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<FeeDetails>> listAllFees() {
+        User currentUser = getAuthenticatedUser();
+
+        return ResponseEntity.ok(service.findAllFees(currentUser.getId()));
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<UserDetails>> getAllUsers() throws Exception {
+        User currentUser = getAuthenticatedUser();
+
+        if (currentUser.getRole() != UserRole.ADMIN) {
+            throw new Exception("Gain admin privileges to see all users!");
         }
 
-        Book addedBook = bookService.findById(id);
-        addedBook.setBorrowed(true);
-
-        Set<Book> listOfBooks = currentUser.getBooks();
-        listOfBooks.add(addedBook);
-
-        service.updateOne(currentUser.getId(), currentUser);
-
-        return ResponseEntity.ok(addedBook);
+        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
-    // create user
-    // @PostMapping("/")
-    // public ResponseEntity<User> createUser(@RequestBody UserModel user){
-    // return new ResponseEntity<>(service.create(user), HttpStatus.CREATED);
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteUserById(@PathVariable("id") int id) throws Exception {
+        User currentUser = getAuthenticatedUser();
+
+        if (currentUser.getRole() != UserRole.ADMIN) {
+            throw new Exception("Gain admin privileges to delete user!");
+        }
+
+        UserDetails userToBeDeleted = service.findById(id);
+
+        if (userToBeDeleted.getRole() == UserRole.ADMIN.toString()) {
+            throw new Exception("Admins can't be Deleted Sorry!!!");
+        }
+
+        service.deleteById(id);
+    }
+
+    @DeleteMapping()
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAllUsers() throws Exception {
+        User currentUser = getAuthenticatedUser();
+
+        if (currentUser.getRole() != UserRole.ADMIN) {
+            throw new Exception("Gain admin privileges to delete all users!");
+        }
+
+        List<UserDetails> userDetails = service.findAll();
+
+        for (UserDetails userDetail: userDetails){
+            if (userDetail.getRole() == UserRole.ADMIN.toString()) {
+                System.out.println("Admins can't be Deleted Sorry!!!");
+            }
+            else {
+                service.deleteById(userDetail.getId());
+            }
+        }
+
+    }
+
+    // @GetMapping(value = "/me/fees", produces = MediaType.APPLICATION_JSON_VALUE)
+    // public ResponseEntity<Set<Fee>> listAllFees() throws Exception {
+    //     User currentUser = getAuthenticatedUser();
+
+    //     if (currentUser.getRole() != UserRole.STUDENT) {
+    //         throw new Exception("Only students have fee tickets assigned under them!");
+    //     }
+
+    //     Set<Fee> listOfFees = currentUser.getFees();
+
+    //     return ResponseEntity.ok(listOfFees);
     // }
 
-    // get all users
-    // @GetMapping()
-    // public ResponseEntity<List <User>> getAllUsers(){
-    // return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
+    // // add a fee
+    // @PostMapping("/fee/{id}")
+    // public ResponseEntity<Fee> addFee(@PathVariable("id") int id) throws Exception {
+    //     User currentUser = getAuthenticatedUser();
+
+    //     if (currentUser.getRole() != UserRole.ADMIN) {
+    //         throw new Exception("Gain admin priveleges to create fee tickets!!!");
+    //     }
+
+    //     Book addedBook = bookService.findById(id);
+    //     addedBook.setBorrowed(true);
+
+    //     Set<Book> listOfBooks = currentUser.getBooks();
+    //     listOfBooks.add(addedBook);
+
+    //     service.updateOne(currentUser.getId(), currentUser);
+
+    //     return ResponseEntity.ok(addedBook);
     // }
 
-    // get user with specific id
-    // @GetMapping("/{id}")
-    // public ResponseEntity<User> getOneUser(@PathVariable("id") int id){
-    // return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
+    // @PostMapping("/book/{id}")
+    // public ResponseEntity<Book> addBook(@PathVariable("id") int id) throws Exception {
+    //     User currentUser = getAuthenticatedUser();
+
+    //     if (currentUser.getRole() == UserRole.ADMIN) {
+    //         throw new Exception("Gain user priveleges to borrow a book!!!");
+    //     }
+
+    //     Book addedBook = bookService.findById(id);
+    //     addedBook.setBorrowed(true);
+
+    //     Set<Book> listOfBooks = currentUser.getBooks();
+    //     listOfBooks.add(addedBook);
+
+    //     service.updateOne(currentUser.getId(), currentUser);
+
+    //     return ResponseEntity.ok(addedBook);
     // }
 
-    // update a user with specific id
-    // @PutMapping("/update/{id}")
-    // @ResponseStatus(HttpStatus.OK)
-    // public void updateOneUser(@PathVariable("id") int id, @RequestBody UserModel
-    // book){
-    // service.updateOne(id, book);
-    // }
-
-    // update specific info of user with a specific id
-    // @PatchMapping(value = "/update/{id}", consumes =
-    // MediaType.APPLICATION_JSON_VALUE)
-    // public ResponseEntity<User> patchOneUser(@PathVariable("id") int id,
-    // @RequestBody JsonPatch patch){
-    // return new ResponseEntity<>(service.patchOne(id, patch), HttpStatus.OK);
-    // }
-
-    // delete user with specific id
-    // @DeleteMapping("/{id}")
-    // @ResponseStatus(HttpStatus.OK)
-    // public void deleteOneUser(@PathVariable("id") int id){
-    // service.deleteById(id);
-    // }
-
-    // delete all users
-    // @DeleteMapping()
-    // @ResponseStatus(HttpStatus.NO_CONTENT)
-    // public void deleteAllUsers(){
-    // service.deleteAll();
-    // }
 }

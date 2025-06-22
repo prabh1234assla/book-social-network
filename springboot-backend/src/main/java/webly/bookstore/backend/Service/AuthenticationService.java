@@ -6,11 +6,11 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import webly.bookstore.backend.DTOs.LogindDTO;
 import webly.bookstore.backend.DTOs.RegisterDTO;
+import webly.bookstore.backend.DTOs.ResponseDTOs.RegisterResponseDTO;
 import webly.bookstore.backend.Models.User;
-import webly.bookstore.backend.Models.UserRole;
+import webly.bookstore.backend.Models.Utils.UserRole;
 import webly.bookstore.backend.Repository.UserRepository;
 
 @Service
@@ -30,17 +30,37 @@ public class AuthenticationService {
         this.authenticationManager = authenticationManager;
     }
 
-    public User Signup(RegisterDTO registerDTO){
+    public RegisterResponseDTO Signup(RegisterDTO registerDTO){
+
+        String username = registerDTO.getUsername();
+        UserRole role = UserRole.ADMIN;
+
+        if(username.endsWith("_std"))
+            role = UserRole.STUDENT;
+        else if(username.endsWith("_fac"))
+            role = UserRole.FACULTY;
+
+        userRepository.findByUsername(username).ifPresent(user -> { throw new webly.bookstore.backend.exceptions.AuthenticationException("user already exists"); });
 
         User registeredUser = User.builder().
-                                    role(UserRole.USER).
+                                    role(role).
                                     email(registerDTO.getEmail()).
-                                    username(registerDTO.getUsername()).
+                                    username(username).
                                     password(passwordEncoder.encode(registerDTO.getPassword())).
+                                    isStudentEnrolled(false).
+                                    semester(0).
                                     build();                                    
 
-        return userRepository.save(registeredUser);
+        userRepository.save(registeredUser);
 
+        RegisterResponseDTO dto = new RegisterResponseDTO();
+
+        dto.setId(registeredUser.getId());
+        dto.setEmail(registeredUser.getEmail());
+        dto.setUsername(registeredUser.getUsername());
+        dto.setRole(registeredUser.getRole().toString());
+
+        return dto;
     }
 
     public User Authenticate(LogindDTO logindDTO){
@@ -48,11 +68,12 @@ public class AuthenticationService {
             authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(logindDTO.getUsername(), logindDTO.getPassword())
             );
-        } catch (AuthenticationException e){
-            System.out.println(e.getMessage());
-        }
 
-        return userRepository.findByUsername(logindDTO.getUsername())
-                .orElseThrow(() -> new UsernameNotFoundException("User Not Found"));
+            return userRepository.findByUsername(logindDTO.getUsername())
+                    .orElseThrow(() -> new UsernameNotFoundException("User Not Found"));
+
+        } catch (AuthenticationException e){
+            throw new webly.bookstore.backend.exceptions.AuthenticationException(e.getMessage());
+        }
     }
 }

@@ -22,6 +22,11 @@ public interface FeeRepository extends JpaRepository<Fee, Long> {
     void updateFeeById(@PathVariable("id") Long id, @RequestBody FeeModel feeModel);
 
     @Transactional
+    @Modifying
+    @Query("DELETE FROM Fee f WHERE f.student.id = :studentId")
+    void deleteAllByStudentId(Long studentId);
+    
+    @Transactional
     Optional<Fee> findById(Long id);
 }
 

@@ -1,6 +1,9 @@
 package webly.bookstore.backend.Models;
 
+import java.math.BigDecimal;
 import java.util.Set;
+
+import javax.validation.constraints.NotNull;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,9 +29,14 @@ public class Course extends BaseEntity {
     @JoinColumn(name = "faculty_id", nullable = false)
     private User faculty;
 
-    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
-    private Set<StudentEnrollment> enrollments;
+    @ManyToMany
+    @JoinTable(
+        name = "course_students",
+        joinColumns = @JoinColumn(name = "course_id"),
+        inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
+    private Set<User> students;
 
-    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
-    private Set<Marks> marks;
+    @Column(name = "marks", nullable = false)
+    private BigDecimal marks;
 }

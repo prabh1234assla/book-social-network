@@ -8,12 +8,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.github.fge.jsonpatch.JsonPatch;
+import com.github.fge.jsonpatch.JsonPatchException;
 
+import webly.bookstore.backend.DTOs.FeeServiceDTOs.FeeDetails;
 import webly.bookstore.backend.Models.Fee;
 import webly.bookstore.backend.Models.BaseModel.FeeModel;
 import webly.bookstore.backend.Models.User;
 import webly.bookstore.backend.Models.Utils.UserRole;
 import webly.bookstore.backend.Service.FeeService;
+
 
 import java.util.List;
 
@@ -33,7 +36,7 @@ public class FeeController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Fee> createFee(@RequestBody FeeModel fee) throws Exception {
+    public ResponseEntity<FeeDetails> createFee(@RequestBody FeeModel fee) throws Exception {
         User currentUser = getAuthenticatedUser();
         if (currentUser.getRole() != UserRole.ADMIN) {
             throw new Exception("Gain admin privileges to create fee record!");
@@ -42,18 +45,18 @@ public class FeeController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Fee>> getAllFees() throws Exception {
+    public ResponseEntity<List<FeeDetails>> getAllFees() throws Exception {
         User currentUser = getAuthenticatedUser();
 
         if (currentUser.getRole() != UserRole.ADMIN) {
             throw new Exception("Gain admin privileges to see fee records!");
         }
-
+        System.out.println("kjdjdkjdn");
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Fee> getOneFee(@PathVariable("id") int id) throws Exception {
+    public ResponseEntity<FeeDetails> getOneFee(@PathVariable("id") int id) throws Exception {
         User currentUser = getAuthenticatedUser();
 
         if (currentUser.getRole() != UserRole.ADMIN) {
@@ -63,16 +66,19 @@ public class FeeController {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
-    @PutMapping("/update/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public void updateOneFee(@PathVariable("id") int id, @RequestBody FeeModel fee){
-        service.updateFeeById(id, fee);
-    }
+    // @PutMapping("/update/{id}")
+    // @ResponseStatus(HttpStatus.OK)
+    // public void updateOneFee(@PathVariable("id") int id, @RequestBody FeeModel fee){
+    //     service.updateFeeById(id, fee);
+    // }
 
-    @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Fee> patchOneFee(@PathVariable("id") int id, @RequestBody JsonPatch patch){
-        return new ResponseEntity<>(service.patchOne(id, patch), HttpStatus.OK);
-    }
+    // @PatchMapping(value = "/{id}", consumes = "application/json-patch+json")
+    // public ResponseEntity<FeeModel> patchOneFee(@PathVariable("id") int id, @RequestBody JsonPatch patch) throws JsonPatchException{
+    //     System.out.println("csnkknmskmds");
+    //     System.out.println(patch);
+    //     FeeModel updatedFee = service.patchOne(id, patch);
+    //     return ResponseEntity.ok(updatedFee);
+    // }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

@@ -2,6 +2,8 @@ package webly.bookstore.backend.Models;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
@@ -27,9 +29,8 @@ public class Fee extends BaseEntity {
     @JsonIgnoreProperties("fees")
     private User student;
 
-    private Integer semester;
-
     @Enumerated(EnumType.STRING)
+    @Column(name = "feeType", nullable = false)
     private FeeType feeType;
 
     @Column(name = "amount", nullable = false)

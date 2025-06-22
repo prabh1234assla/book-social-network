@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/bookstore
+    url: jdbc:postgresql://localhost:5432/campus_sphere_db
     username: postgres
     password: bre_ad%4321
 
