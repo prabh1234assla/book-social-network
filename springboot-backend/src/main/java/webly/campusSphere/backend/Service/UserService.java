@@ -20,7 +20,12 @@ import webly.campusSphere.backend.DTOs.FeeServiceDTOs.FeeDetails;
 import webly.campusSphere.backend.DTOs.MarksServiceDTOs.MarksDetails;
 import webly.campusSphere.backend.DTOs.StudentEnrollmentServiceDTOs.StudentEnrollmentDetails;
 import webly.campusSphere.backend.DTOs.UserServiceDTOs.UserDetails;
+import webly.campusSphere.backend.DTOs.frontendDisplayDTOs.admin.coursesDTO;
+import webly.campusSphere.backend.DTOs.frontendDisplayDTOs.admin.facultyDTO;
 import webly.campusSphere.backend.DTOs.frontendDisplayDTOs.admin.studentDTO;
+import webly.campusSphere.backend.DTOs.frontendDisplayDTOs.student.enrollmentsDTO;
+import webly.campusSphere.backend.DTOs.frontendDisplayDTOs.student.feesDTO;
+import webly.campusSphere.backend.DTOs.frontendDisplayDTOs.student.marksDTO;
 import webly.campusSphere.backend.Models.Course;
 import webly.campusSphere.backend.Models.Fee;
 import webly.campusSphere.backend.Models.Marks;
@@ -57,7 +62,7 @@ public class UserService {
     }
 
     public List<studentDTO> findAllStudents() throws EntityNotFoundException{
-        List<UserDetails> userDetails = repository.findAll().stream().sorted(Comparator.comparing(User::getId)).filter(user -> (user.getRole() == UserRole.STUDENT)).map(user -> UserDetails.generaDto(user)).collect(Collectors.toList());
+        List<studentDTO> userDetails = repository.findAll().stream().sorted(Comparator.comparing(User::getId)).filter(user -> (user.getRole() == UserRole.STUDENT)).map(user -> studentDTO.generateDTO(user)).collect(Collectors.toList());
 
         if (userDetails.isEmpty() == true)
                 throw new EntityNotFoundException("User Details Are Empty");
@@ -65,8 +70,8 @@ public class UserService {
         return userDetails;
     }
 
-    public List<UserDetails> findAllFaculty() throws EntityNotFoundException{
-        List<UserDetails> userDetails = repository.findAll().stream().sorted(Comparator.comparing(User::getId)).filter(user -> (user.getRole() == UserRole.FACULTY)).map(user -> UserDetails.generaDto(user)).collect(Collectors.toList());
+    public List<facultyDTO> findAllFaculty() throws EntityNotFoundException{
+        List<facultyDTO> userDetails = repository.findAll().stream().sorted(Comparator.comparing(User::getId)).filter(user -> (user.getRole() == UserRole.FACULTY)).map(user -> facultyDTO.generateDTO(user)).collect(Collectors.toList());
 
         if (userDetails.isEmpty() == true)
                 throw new EntityNotFoundException("User Details Are Empty");
@@ -74,38 +79,38 @@ public class UserService {
         return userDetails;
     }
 
-    public List<CourseDetails> findAllCoursesAssociated(long id) throws EntityNotFoundException{
+    public List<coursesDTO> findAllCoursesAssociated(long id) throws EntityNotFoundException{
         
         User user = repository.findById(id).orElseThrow(EntityNotFoundException::new);
         Set<Course> coursesTaught = user.getCoursesTaught();
-        List<CourseDetails> courseDetails = coursesTaught.stream().map(course -> CourseDetails.generateDTO(course)).collect(Collectors.toList());
+        List<coursesDTO> courseDetails = coursesTaught.stream().map(course -> coursesDTO.generaDto(course)).collect(Collectors.toList());
 
         return courseDetails;
     }
 
-    public List<FeeDetails> findAllFees(long id) throws EntityNotFoundException{
+    public List<feesDTO> findAllFees(long id) throws EntityNotFoundException{
         
         User user = repository.findById(id).orElseThrow(EntityNotFoundException::new);
         Set<Fee> fees = user.getFees();
-        List<FeeDetails> feeDetails = fees.stream().map(fee -> FeeDetails.generateDTO(fee)).collect(Collectors.toList());
+        List<feesDTO> feeDetails = fees.stream().map(fee -> feesDTO.generaDto(fee)).collect(Collectors.toList());
 
         return feeDetails;
     }
 
-    public List<StudentEnrollmentDetails> findAllEnrollments(long id) throws EntityNotFoundException{
+    public List<enrollmentsDTO> findAllEnrollments(long id) throws EntityNotFoundException{
         
         User user = repository.findById(id).orElseThrow(EntityNotFoundException::new);
         Set<StudentEnrollment> enrollments = user.getStudentEnrollments();
-        List<StudentEnrollmentDetails> enrollmentDetails = enrollments.stream().map(enrollment -> StudentEnrollmentDetails.generateDTO(enrollment)).collect(Collectors.toList());
+        List<enrollmentsDTO> enrollmentDetails = enrollments.stream().map(enrollment -> enrollmentsDTO.generaDto(enrollment)).collect(Collectors.toList());
 
         return enrollmentDetails;
     }
 
-    public List<MarksDetails> findAllMarks(long id) throws EntityNotFoundException{
+    public List<marksDTO> findAllMarks(long id) throws EntityNotFoundException{
         
         User user = repository.findById(id).orElseThrow(EntityNotFoundException::new);
         Set<Marks> marks = user.getMarks();
-        List<MarksDetails> marksDetails = marks.stream().map(mark -> MarksDetails.generateDTO(mark)).collect(Collectors.toList());
+        List<marksDTO> marksDetails = marks.stream().map(mark -> marksDTO.generateDto(mark)).collect(Collectors.toList());
 
         return marksDetails;
     }

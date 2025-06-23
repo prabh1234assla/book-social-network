@@ -15,6 +15,7 @@ import com.github.fge.jsonpatch.JsonPatchException;
 
 import jakarta.persistence.EntityNotFoundException;
 import webly.campusSphere.backend.DTOs.StudentEnrollmentServiceDTOs.StudentEnrollmentDetails;
+import webly.campusSphere.backend.DTOs.frontendDisplayDTOs.admin.enrollmentsDTO;
 import webly.campusSphere.backend.Models.Course;
 import webly.campusSphere.backend.Models.StudentEnrollment;
 import webly.campusSphere.backend.Models.User;
@@ -66,10 +67,10 @@ public class StudentEnrollmentService {
                 .orElseThrow(() -> new EntityNotFoundException("Enrollment not found with id: " + id)));
     }
 
-    public List<StudentEnrollmentDetails> findAll() {
+    public List<enrollmentsDTO> findAll() {
         return enrollmentRepository.findAll().stream()
                 .sorted(Comparator.comparing(StudentEnrollment::getId))
-                .map(studentEnrollment -> StudentEnrollmentDetails.generateDTO(studentEnrollment))
+                .map(studentEnrollment -> enrollmentsDTO.generaDto(studentEnrollment))
                 .collect(Collectors.toList());
     }
 

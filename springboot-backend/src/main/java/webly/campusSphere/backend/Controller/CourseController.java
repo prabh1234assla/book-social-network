@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import com.github.fge.jsonpatch.JsonPatch;
 
 import webly.campusSphere.backend.DTOs.CourseServiceDTOs.CourseDetails;
+import webly.campusSphere.backend.DTOs.frontendDisplayDTOs.admin.coursesDTO;
 import webly.campusSphere.backend.Models.Course;
 import webly.campusSphere.backend.Models.User;
 import webly.campusSphere.backend.Models.BaseModel.CourseModel;
@@ -47,7 +48,7 @@ public class CourseController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<CourseDetails>> getAllCourses() {
+    public ResponseEntity<List<coursesDTO>> getAllCourses() {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
@@ -56,10 +57,10 @@ public class CourseController {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/faculty/{id}")
-    public ResponseEntity<List<CourseDetails>> getCoursesTaughtByFaculty(@PathVariable("id") int id) {
-        return new ResponseEntity<>(service.findAllByFacultyId(id), HttpStatus.OK);
-    }
+    // @GetMapping("/faculty/{id}")
+    // public ResponseEntity<List<CourseDetails>> getCoursesTaughtByFaculty(@PathVariable("id") int id) {
+    //     return new ResponseEntity<>(service.findAllByFacultyId(id), HttpStatus.OK);
+    // }
 
     // @PutMapping("/update/{id}")
     // @ResponseStatus(HttpStatus.OK)

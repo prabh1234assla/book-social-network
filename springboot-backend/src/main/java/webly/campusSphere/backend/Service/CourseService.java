@@ -18,6 +18,7 @@ import com.github.fge.jsonpatch.JsonPatchException;
 
 import jakarta.persistence.EntityNotFoundException;
 import webly.campusSphere.backend.DTOs.CourseServiceDTOs.CourseDetails;
+import webly.campusSphere.backend.DTOs.frontendDisplayDTOs.admin.coursesDTO;
 import webly.campusSphere.backend.Models.Course;
 import webly.campusSphere.backend.Models.User;
 import webly.campusSphere.backend.Models.BaseModel.CourseModel;
@@ -77,17 +78,17 @@ public class CourseService {
                 .orElseThrow(() -> new EntityNotFoundException("Course not found with id: " + id)));
     }
 
-    public List<CourseDetails> findAll() {
+    public List<coursesDTO> findAll() {
         return courseRepository.findAll().stream()
                 .sorted(Comparator.comparing(Course::getId))
-                .map(course -> CourseDetails.generateDTO(course))
+                .map(course -> coursesDTO.generaDto(course))
                 .collect(Collectors.toList());
     }
 
-    public List<CourseDetails> findAllByFacultyId(long id) {
+    public List<webly.campusSphere.backend.DTOs.frontendDisplayDTOs.faculty.coursesDTO> findAllByFacultyId(long id) {
         return courseRepository.listCoursesTaughtByGivenFaculty(id).stream()
                 .sorted(Comparator.comparing(Course::getId))
-                .map(course -> CourseDetails.generateDTO(course))
+                .map(course -> webly.campusSphere.backend.DTOs.frontendDisplayDTOs.faculty.coursesDTO.generaDto(course))
                 .collect(Collectors.toList());
     }
 

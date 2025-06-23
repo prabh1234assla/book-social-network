@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import com.github.fge.jsonpatch.JsonPatch;
 
 import webly.campusSphere.backend.DTOs.StudentEnrollmentServiceDTOs.StudentEnrollmentDetails;
+import webly.campusSphere.backend.DTOs.frontendDisplayDTOs.admin.enrollmentsDTO;
 import webly.campusSphere.backend.Models.StudentEnrollment;
 import webly.campusSphere.backend.Models.User;
 import webly.campusSphere.backend.Models.BaseModel.StudentEnrollmentModel;
@@ -44,7 +45,7 @@ public class StudentEnrollmentController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<StudentEnrollmentDetails>> getAllEnrollments() {
+    public ResponseEntity<List<enrollmentsDTO>> getAllEnrollments() {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 

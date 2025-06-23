@@ -26,6 +26,12 @@ import webly.campusSphere.backend.DTOs.FeeServiceDTOs.FeeDetails;
 import webly.campusSphere.backend.DTOs.MarksServiceDTOs.MarksDetails;
 import webly.campusSphere.backend.DTOs.StudentEnrollmentServiceDTOs.StudentEnrollmentDetails;
 import webly.campusSphere.backend.DTOs.UserServiceDTOs.UserDetails;
+import webly.campusSphere.backend.DTOs.frontendDisplayDTOs.admin.coursesDTO;
+import webly.campusSphere.backend.DTOs.frontendDisplayDTOs.admin.facultyDTO;
+import webly.campusSphere.backend.DTOs.frontendDisplayDTOs.admin.studentDTO;
+import webly.campusSphere.backend.DTOs.frontendDisplayDTOs.student.enrollmentsDTO;
+import webly.campusSphere.backend.DTOs.frontendDisplayDTOs.student.feesDTO;
+import webly.campusSphere.backend.DTOs.frontendDisplayDTOs.student.marksDTO;
 import webly.campusSphere.backend.Models.Fee;
 import webly.campusSphere.backend.Models.User;
 import webly.campusSphere.backend.Models.BaseModel.UserModel;
@@ -63,7 +69,7 @@ public class UserController {
 
     // get all courses under you
     @GetMapping(value = "/me/courseStudied", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<CourseDetails>> listAllCoursesStudied() {
+    public ResponseEntity<List<coursesDTO>> listAllCoursesStudied() {
         User currentUser = getAuthenticatedUser();
 
         return ResponseEntity.ok(service.findAllCoursesAssociated(currentUser.getId()));
@@ -71,7 +77,7 @@ public class UserController {
 
     // get all courses taught by me
     @GetMapping(value = "/me/courseTaught", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<CourseDetails>> listAllCoursesTaught() {
+    public ResponseEntity<List<webly.campusSphere.backend.DTOs.frontendDisplayDTOs.faculty.coursesDTO>> listAllCoursesTaught() {
         User currentUser = getAuthenticatedUser();
 
         return ResponseEntity.ok(courseService.findAllByFacultyId(currentUser.getId()));
@@ -79,7 +85,7 @@ public class UserController {
 
     // get all fees
     @GetMapping(value = "/me/fees", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<FeeDetails>> listAllFees() {
+    public ResponseEntity<List<feesDTO>> listAllFees() {
         User currentUser = getAuthenticatedUser();
 
         return ResponseEntity.ok(service.findAllFees(currentUser.getId()));
@@ -87,7 +93,7 @@ public class UserController {
 
     // get all enrollments
     @GetMapping(value = "/me/enrollments", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<StudentEnrollmentDetails>> listAllEnrollments() {
+    public ResponseEntity<List<enrollmentsDTO>> listAllEnrollments() {
         User currentUser = getAuthenticatedUser();
 
         return ResponseEntity.ok(service.findAllEnrollments(currentUser.getId()));
@@ -95,7 +101,7 @@ public class UserController {
 
     // get all marks
     @GetMapping(value = "/me/marks", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<MarksDetails>> listMarks() {
+    public ResponseEntity<List<marksDTO>> listMarks() {
         User currentUser = getAuthenticatedUser();
 
         return ResponseEntity.ok(service.findAllMarks(currentUser.getId()));
@@ -113,7 +119,7 @@ public class UserController {
     }
 
     @GetMapping("/students")
-    public ResponseEntity<List<UserDetails>> getAllStudents() throws Exception {
+    public ResponseEntity<List<studentDTO>> getAllStudents() throws Exception {
         User currentUser = getAuthenticatedUser();
 
         if (currentUser.getRole() == UserRole.STUDENT) {
@@ -124,7 +130,7 @@ public class UserController {
     }
 
     @GetMapping("/faculty")
-    public ResponseEntity<List<UserDetails>> getAllFaculty() throws Exception {
+    public ResponseEntity<List<facultyDTO>> getAllFaculty() throws Exception {
         return new ResponseEntity<>(service.findAllFaculty(), HttpStatus.OK);
     }
 
