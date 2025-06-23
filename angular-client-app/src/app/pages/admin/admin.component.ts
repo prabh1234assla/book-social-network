@@ -12,5 +12,5 @@ export class AdminComponent {
   subtitle2 = 'View Entities';
 
   banners1 = ["courses", "enrollments", "fees"].map(t => new Banner(t, false))
-  banners2 = ["faculty", "students", "courses"].map(t => new Banner(t))
+  banners2 = ["faculty", "students", "courses", "enrollments"].map(t => new Banner(t))
 }
