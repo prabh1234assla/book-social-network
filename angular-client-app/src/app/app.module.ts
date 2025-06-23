@@ -20,6 +20,8 @@ import { CreateEnrollmentsComponent } from './pages/create-enrollments/create-en
 import { CreateFeesComponent } from './pages/create-fees/create-fees.component';
 import { CreateMarksComponent } from './pages/create-marks/create-marks.component';
 import { CreateCoursesComponent } from './pages/create-courses/create-courses.component';
+import { ListEntitiesComponent } from './shared/list-entities/list-entities.component';
+import { CoursesComponent } from './pages/listadminEntities/courses/courses.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { CreateCoursesComponent } from './pages/create-courses/create-courses.co
     CreateEnrollmentsComponent,
     CreateFeesComponent,
     CreateMarksComponent,
-    CreateCoursesComponent
+    CreateCoursesComponent,
+    ListEntitiesComponent,
+    CoursesComponent
   ],
   imports: [
     BrowserModule,

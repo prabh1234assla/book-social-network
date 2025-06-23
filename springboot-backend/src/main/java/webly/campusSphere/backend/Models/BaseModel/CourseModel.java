@@ -1,10 +1,10 @@
 package webly.campusSphere.backend.Models.BaseModel;
 
-import java.math.BigDecimal;
 import java.util.Set;
 
 import lombok.Getter;
 import lombok.Setter;
+import webly.campusSphere.backend.Models.Marks;
 
 @Getter
 @Setter
@@ -13,6 +13,6 @@ public class CourseModel {
     private long facultyId;
     private String courseName;
     private Integer credits;
-    private BigDecimal marks;
     private Set<Long> studentsId;
+    private Set<Marks> marks;
 }
