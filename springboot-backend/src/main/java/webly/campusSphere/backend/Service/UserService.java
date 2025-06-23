@@ -20,6 +20,7 @@ import webly.campusSphere.backend.DTOs.FeeServiceDTOs.FeeDetails;
 import webly.campusSphere.backend.DTOs.MarksServiceDTOs.MarksDetails;
 import webly.campusSphere.backend.DTOs.StudentEnrollmentServiceDTOs.StudentEnrollmentDetails;
 import webly.campusSphere.backend.DTOs.UserServiceDTOs.UserDetails;
+import webly.campusSphere.backend.DTOs.frontendDisplayDTOs.admin.studentDTO;
 import webly.campusSphere.backend.Models.Course;
 import webly.campusSphere.backend.Models.Fee;
 import webly.campusSphere.backend.Models.Marks;
@@ -55,7 +56,7 @@ public class UserService {
         return userDetails;
     }
 
-    public List<UserDetails> findAllStudents() throws EntityNotFoundException{
+    public List<studentDTO> findAllStudents() throws EntityNotFoundException{
         List<UserDetails> userDetails = repository.findAll().stream().sorted(Comparator.comparing(User::getId)).filter(user -> (user.getRole() == UserRole.STUDENT)).map(user -> UserDetails.generaDto(user)).collect(Collectors.toList());
 
         if (userDetails.isEmpty() == true)

@@ -1,4 +1,4 @@
-package webly.campusSphere.backend.DTOs.frontendDisplayDTOs.admin;
+package webly.campusSphere.backend.DTOs.frontendDisplayDTOs.student;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -19,3 +19,4 @@ public class facultyDTO {
                             .build();
     }
 }
+
