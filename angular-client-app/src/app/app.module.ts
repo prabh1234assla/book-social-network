@@ -8,13 +8,23 @@ import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
 import { ErrorComponent } from './error/error.component';
 import { provideHttpClient } from '@angular/common/http';
+import { BannerComponent } from './shared/banner/banner.component';
+import { StudentComponent } from './pages/student/student.component';
+import { FacultyComponent } from './pages/faculty/faculty.component';
+import { AdminComponent } from './pages/admin/admin.component';
+import { PortalsComponent } from './shared/portals/portals.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignupComponent,
     SigninComponent,
-    ErrorComponent
+    ErrorComponent,
+    BannerComponent,
+    StudentComponent,
+    FacultyComponent,
+    AdminComponent,
+    PortalsComponent
   ],
   imports: [
     BrowserModule,

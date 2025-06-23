@@ -1,0 +1,23 @@
+<!-- dynamic-page.component.html -->
+<div class="page-container">
+  <img [src]="'assets/auxillary/profile.svg'" alt="Profile Button" />
+
+  <h1>{{ title }}</h1>
+
+  <h2>{{ subtitle1 }}</h2>
+  <div class="banner-group">
+    <app-banner *ngFor="let banner of banners1"
+                [imagePath]="banner.imagePath"
+                [bannerText]="banner.bannerText">
+    </app-banner>
+  </div>
+
+  <h2>{{ subtitle2 }}</h2>
+  <div class="banner-group">
+    <app-banner *ngFor="let banner of banners2"
+                [imagePath]="banner.imagePath"
+                [bannerText]="banner.bannerText">
+    </app-banner>
+  </div>
+</div>
+

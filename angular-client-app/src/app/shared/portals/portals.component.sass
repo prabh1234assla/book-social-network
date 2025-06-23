@@ -1,0 +1,40 @@
+@import 'variables'
+    
+.page-container
+    height: 100vh
+    position: relative
+    overflow: hidden scroll
+    width: 100vw
+    background-color: $primary-color
+
+    img
+        height: 6%
+        position: absolute
+    
+    h1
+        font-family: $secondary-font
+        font-weight: bold
+        color: $secondary-color-hard
+        font-size: 1.5em
+        margin: 4% 0% 0% 4%
+
+    h2
+        font-family: $primary-font
+        color: $secondary-color-light
+        font-size: 1em
+        margin: 1% 0% 1% 4%
+
+    .banner-group
+        width: 100%
+        display: flex
+        align-content: center
+        margin: 0% 0% 0% 3%
+        flex-wrap: wrap
+        gap: 1%
+
+        app-banner
+            margin: 1%
+            transition: all 200ms
+
+            &:hover
+                scale: 0.9
