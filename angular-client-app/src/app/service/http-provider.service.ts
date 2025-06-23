@@ -39,11 +39,11 @@ export class HttpProviderService {
     return this.webapiservice.post(httpLink.signin, JSON.stringify(jsonData));
   }
 
-  public listAllStudents(jsonData: JSON): Observable<any> {
+  public listAllStudents(): Observable<any> {
     return this.webapiservice.get(httpLink.listStudents);
   }
 
-  public listAllFaculty(jsonData: JSON): Observable<any> {
+  public listAllFaculty(): Observable<any> {
     return this.webapiservice.get(httpLink.listFaculty);
   }
 
@@ -51,7 +51,7 @@ export class HttpProviderService {
     return this.webapiservice.post(httpLink.createFees, JSON.stringify(jsonData));
   }
 
-  public listFeesOfStudent(jsonData: JSON): Observable<any> {
+  public listFeesOfStudent(): Observable<any> {
     return this.webapiservice.get(httpLink.listFees);
   }
 
@@ -59,7 +59,7 @@ export class HttpProviderService {
     return this.webapiservice.post(httpLink.createMarks, JSON.stringify(jsonData));
   }
 
-  public listMarksOfStudent(jsonData: JSON): Observable<any> {
+  public listMarksOfStudent(): Observable<any> {
     return this.webapiservice.get(httpLink.listMarks);
   }
 
@@ -67,11 +67,11 @@ export class HttpProviderService {
     return this.webapiservice.post(httpLink.createEnrollments, JSON.stringify(jsonData));
   }
 
-  public listEnrollmentsForAdminAndFacultyPortal(jsonData: JSON): Observable<any> {
+  public listEnrollmentsForAdminAndFacultyPortal(): Observable<any> {
     return this.webapiservice.get(httpLink.listEnrollmentsForAdminAndFaculty);
   }
 
-  public listEnrollmentsForStudent(jsonData: JSON): Observable<any> {
+  public listEnrollmentsForStudent(): Observable<any> {
     return this.webapiservice.get(httpLink.listEnrollmentsForStudent);
   }
 
@@ -79,15 +79,15 @@ export class HttpProviderService {
     return this.webapiservice.post(httpLink.createCourses, JSON.stringify(jsonData));
   }
 
-  public listCoursesForAdminPortal(jsonData: JSON): Observable<any> {
+  public listCoursesForAdminPortal(): Observable<any> {
     return this.webapiservice.get(httpLink.listCoursesForAdmin);
   }
 
-  public listCoursesForFacultyPortal(jsonData: JSON): Observable<any> {
+  public listCoursesForFacultyPortal(): Observable<any> {
     return this.webapiservice.get(httpLink.listCoursesForFaculty);
   }
 
-  public listCoursesForStudent(jsonData: JSON): Observable<any> {
+  public listCoursesForStudent(): Observable<any> {
     return this.webapiservice.get(httpLink.listCoursesForStudent);
   }
 }

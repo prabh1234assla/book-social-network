@@ -12,5 +12,5 @@ export class StudentComponent {
   subtitle2 = 'View Entities';
 
   banners1 = ["enrollments"].map(t => new Banner(t, false))
-  banners2 = ["courses", "enrollments", "marks", "fees"].map(t => new Banner(t))
+  banners2 = ["courses", "faculty", "enrollments", "marks", "fees"].map(t => new Banner(t))
 }

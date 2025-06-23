@@ -25,6 +25,7 @@ import webly.campusSphere.backend.Models.Fee;
 import webly.campusSphere.backend.Models.Marks;
 import webly.campusSphere.backend.Models.StudentEnrollment;
 import webly.campusSphere.backend.Models.User;
+import webly.campusSphere.backend.Models.Utils.UserRole;
 import webly.campusSphere.backend.Repository.UserRepository;
 
 @Service
@@ -47,6 +48,24 @@ public class UserService {
 
     public List<UserDetails> findAll() throws EntityNotFoundException{
         List<UserDetails> userDetails = repository.findAll().stream().sorted(Comparator.comparing(User::getId)).map(user -> UserDetails.generaDto(user)).collect(Collectors.toList());
+
+        if (userDetails.isEmpty() == true)
+                throw new EntityNotFoundException("User Details Are Empty");
+
+        return userDetails;
+    }
+
+    public List<UserDetails> findAllStudents() throws EntityNotFoundException{
+        List<UserDetails> userDetails = repository.findAll().stream().sorted(Comparator.comparing(User::getId)).filter(user -> (user.getRole() == UserRole.STUDENT)).map(user -> UserDetails.generaDto(user)).collect(Collectors.toList());
+
+        if (userDetails.isEmpty() == true)
+                throw new EntityNotFoundException("User Details Are Empty");
+
+        return userDetails;
+    }
+
+    public List<UserDetails> findAllFaculty() throws EntityNotFoundException{
+        List<UserDetails> userDetails = repository.findAll().stream().sorted(Comparator.comparing(User::getId)).filter(user -> (user.getRole() == UserRole.FACULTY)).map(user -> UserDetails.generaDto(user)).collect(Collectors.toList());
 
         if (userDetails.isEmpty() == true)
                 throw new EntityNotFoundException("User Details Are Empty");

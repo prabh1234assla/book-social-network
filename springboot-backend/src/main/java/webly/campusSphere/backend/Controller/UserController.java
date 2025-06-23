@@ -112,6 +112,22 @@ public class UserController {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/students")
+    public ResponseEntity<List<UserDetails>> getAllStudents() throws Exception {
+        User currentUser = getAuthenticatedUser();
+
+        if (currentUser.getRole() == UserRole.STUDENT) {
+            throw new Exception("Gain admin or faculty privileges to see all students!");
+        }
+
+        return new ResponseEntity<>(service.findAllStudents(), HttpStatus.OK);
+    }
+
+    @GetMapping("/faculty")
+    public ResponseEntity<List<UserDetails>> getAllFaculty() throws Exception {
+        return new ResponseEntity<>(service.findAllFaculty(), HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteUserById(@PathVariable("id") int id) throws Exception {
