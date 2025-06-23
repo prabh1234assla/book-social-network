@@ -1,17 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-banner',
   templateUrl: './banner.component.html',
   styleUrl: './banner.component.sass'
 })
-export class BannerComponent {
+export class BannerComponent implements OnInit {
   @Input() imagePath: string = '';
   @Input() bannerText: string = '';
+  @Input() routeLink: string = '';
   word1: string = '';
   word2: string = '';
 
   ngOnInit(): void {
+    this.routeLink = '/' + this.routeLink
     this.assignWords();
   }
   

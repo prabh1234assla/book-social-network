@@ -32,13 +32,22 @@ export class SignupComponent implements OnInit {
     this.httpProvider.signup(this.registerForm.value).subscribe({
       next: data => {
 
+        let role = data.body.role
+        
+        console.log(data)
+
         delete this.registerForm.value['email']
 
         this.httpProvider.signin(this.registerForm.value).subscribe({
           next: data => {
             this.setToken(data.body.token);
 
-            this.router.navigate(['/library']);
+            if (role == 'ADMIN')
+              this.router.navigate(['/admin']);
+            else if (role == 'FACULTY')
+              this.router.navigate(['/faculty']);
+            else
+              this.router.navigate(['/student']);
           },
           error: error => {
             alert('There was an error! ' + error);

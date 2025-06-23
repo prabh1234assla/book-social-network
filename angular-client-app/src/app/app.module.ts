@@ -13,6 +13,13 @@ import { StudentComponent } from './pages/student/student.component';
 import { FacultyComponent } from './pages/faculty/faculty.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { PortalsComponent } from './shared/portals/portals.component';
+import { InputBoxComponent } from './shared/input-box/input-box.component';
+import { CreateTicketComponent } from './shared/create-ticket/create-ticket.component';
+import { ViewEntitiesComponent } from './shared/view-entities/view-entities.component';
+import { CreateEnrollmentsComponent } from './pages/create-enrollments/create-enrollments.component';
+import { CreateFeesComponent } from './pages/create-fees/create-fees.component';
+import { CreateMarksComponent } from './pages/create-marks/create-marks.component';
+import { CreateCoursesComponent } from './pages/create-courses/create-courses.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +31,14 @@ import { PortalsComponent } from './shared/portals/portals.component';
     StudentComponent,
     FacultyComponent,
     AdminComponent,
-    PortalsComponent
+    PortalsComponent,
+    InputBoxComponent,
+    CreateTicketComponent,
+    ViewEntitiesComponent,
+    CreateEnrollmentsComponent,
+    CreateFeesComponent,
+    CreateMarksComponent,
+    CreateCoursesComponent
   ],
   imports: [
     BrowserModule,

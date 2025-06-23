@@ -1,0 +1,15 @@
+<div class="createTicketForm">
+
+    <form [formGroup]="createTicketForm" (ngSubmit)="onSubmit(createTicketForm)">
+        
+        <ng-container *ngFor="let input of inputsToTake">
+            <app-input-box
+            [createTicketForm]="createTicketForm"
+            [input]="input">
+            </app-input-box>
+        </ng-container>
+
+        <button type="submit" [ngStyle]="{'opacity': createTicketForm.invalid ? 0.2 : 1}" [disabled]="createTicketForm.invalid">{{ submitMessage }}</button>
+
+    </form>
+</div>

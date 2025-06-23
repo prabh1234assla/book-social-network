@@ -27,26 +27,26 @@ export class SigninComponent {
   }
 
   async loginMe() {
-    this.httpProvider.signup(this.loginForm.value).subscribe({
-      next: data => {
-
         this.httpProvider.signin(this.loginForm.value).subscribe({
           next: data => {
+            let role = data.body.role;
+            console.log(role)
             this.setToken(data.body.token);
+            
+            if (role == 'ADMIN')
+              this.router.navigate(['/admin']);
+            else if (role == 'FACULTY')
+              this.router.navigate(['/faculty']);
+            else
+              this.router.navigate(['/student']);
 
-            this.router.navigate(['/library']);
           },
           error: error => {
             alert('There was an error! ' + error);
           }
         })
 
-      },
-      error: error => {
-        console.error('There was an error!', error);
       }
-    })
-  }
 
   onSubmit(form: FormGroup) {
     if (form.valid) {

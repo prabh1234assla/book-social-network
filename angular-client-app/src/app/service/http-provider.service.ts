@@ -7,7 +7,15 @@ const apiUrl = "http://localhost:8000/";
 
 const httpLink = {
   signup: apiUrl + "auth/signup",
-  signin: apiUrl + "auth/signin"
+  signin: apiUrl + "auth/signin",
+  createFees: apiUrl + "fee/",
+  listFees: apiUrl + "fee",
+  createMarks: apiUrl + "marks/",
+  listMarks: apiUrl + "marks",
+  createEnrollments: apiUrl + "enrollment/",
+  listEnrollments: apiUrl + "enrollment",
+  createCourses: apiUrl + "course/",
+  listCourses: apiUrl + "course"
 }
 
 @Injectable({
@@ -26,5 +34,7 @@ export class HttpProviderService {
     return this.webapiservice.post(httpLink.signin, JSON.stringify(jsonData));
   }
 
-
+  public createEnrollments(jsonData: JSON): Observable<any> {
+    return this.webapiservice.post(httpLink.createEnrollments, JSON.stringify(jsonData));
+  }
 }

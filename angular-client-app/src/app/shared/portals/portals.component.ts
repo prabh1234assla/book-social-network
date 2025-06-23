@@ -3,13 +3,15 @@ import { Component, Input } from '@angular/core';
 export class Banner{
   imagePath: string
   bannerText: string
+  routeLink: string
 
   constructor(bannerText: string, viewFlag: boolean = true){
-    let suffix = "create_";
+    let suffix = "create";
     if (viewFlag)
-        suffix = "list_";
-      this.imagePath = `assets/portals/${suffix+bannerText}.jpg`;
-      this.bannerText = suffix+bannerText;
+        suffix = "list";
+      this.imagePath = `assets/portals/${suffix+'_'+bannerText}.jpg`;
+      this.bannerText = suffix+'_'+bannerText;
+      this.routeLink = suffix + (bannerText[0].toUpperCase() + bannerText.slice(1).toLowerCase())
   }
 }
 
