@@ -1,4 +1,0 @@
-- set role and semester as ENV VARS
-- if role is STUDENT only then semester is not null
-
-- fee on creating is automatically false
