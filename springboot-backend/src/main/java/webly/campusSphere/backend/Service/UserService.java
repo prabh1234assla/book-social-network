@@ -123,6 +123,8 @@ public class UserService {
     //     return repository.save(userPatched);
     // }
 
+    // t1 ----- t2 (join constraints)
+    // user ------------ enrolls, fees, marks, xyz
     @Transactional
     public void deleteById(long id) {
         if (!repository.existsById(id)) {

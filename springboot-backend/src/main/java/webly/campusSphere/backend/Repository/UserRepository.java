@@ -18,6 +18,7 @@ import webly.campusSphere.backend.Models.BaseModel.UserModel;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     
+    // "/update/{id}", post --- req body json
     @Modifying
     @Transactional
     @Query(value = "UPDATE coursesTaught SET role = ?1, username = ?2, email = ?3, password = ?4, enrollments = ?5, fees = ?6, marks = ?7 WHERE id = ?8", nativeQuery = true)

@@ -22,6 +22,7 @@ import { CreateMarksComponent } from './pages/create-marks/create-marks.componen
 import { CreateCoursesComponent } from './pages/create-courses/create-courses.component';
 import { ListEntitiesComponent } from './shared/list-entities/list-entities.component';
 import { CoursesComponent } from './pages/listadminEntities/courses/courses.component';
+import { EnrollmentsComponent } from './pages/listadminEntities/enrollments/enrollments.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { CoursesComponent } from './pages/listadminEntities/courses/courses.comp
     CreateMarksComponent,
     CreateCoursesComponent,
     ListEntitiesComponent,
-    CoursesComponent
+    CoursesComponent,
+    EnrollmentsComponent
   ],
   imports: [
     BrowserModule,

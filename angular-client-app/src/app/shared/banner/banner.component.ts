@@ -13,7 +13,8 @@ export class BannerComponent implements OnInit {
   word2: string = '';
 
   ngOnInit(): void {
-    this.routeLink = '/' + this.routeLink
+    if (this.bannerText.startsWith("create") == true)
+      this.routeLink = '/'+this.routeLink
     this.assignWords();
   }
   

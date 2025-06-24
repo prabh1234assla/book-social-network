@@ -6,6 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './list-entities.component.sass'
 })
 export class ListEntitiesComponent {
-  @Input() columnHeaders: string[] = [];
   @Input() rowEntries: any[] = [];
+  columnHeaders: string[] = Object.keys(this.rowEntries[0]);
 }
