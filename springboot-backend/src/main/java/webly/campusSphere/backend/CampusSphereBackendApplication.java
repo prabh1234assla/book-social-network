@@ -9,10 +9,10 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
-public class BookStoreBackendApplication {
+public class CampusSphereBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BookStoreBackendApplication.class, args);
+		SpringApplication.run(CampusSphereBackendApplication.class, args);
 	}
 
 	@Bean
