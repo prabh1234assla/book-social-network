@@ -21,6 +21,7 @@ import { CreateFeesComponent } from './pages/create-fees/create-fees.component';
 import { CreateMarksComponent } from './pages/create-marks/create-marks.component';
 import { CreateCoursesComponent } from './pages/create-courses/create-courses.component';
 import { ListEntitiesComponent } from './shared/list-entities/list-entities.component';
+import { ProfileMenuComponent } from './shared/profile-menu/profile-menu.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ListEntitiesComponent } from './shared/list-entities/list-entities.comp
     CreateMarksComponent,
     CreateCoursesComponent,
     ListEntitiesComponent,
+    ProfileMenuComponent
   ],
   imports: [
     BrowserModule,

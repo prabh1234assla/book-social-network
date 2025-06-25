@@ -1,0 +1,35 @@
+@import 'variables'
+
+.profile-container
+    .img
+        height: 6%
+        top: 0%
+        left: 0%
+        transition: all 1s
+
+        &:hover
+            scale: 1.5
+        
+        &:active
+            opacity: 0%
+
+    .card
+        background-color: $secondary-color-hard
+        height: fit-content
+        width: 10%
+        margin: 0.1%
+        padding: 0.2%
+        top: 0%
+        left: 0%
+        position: absolute
+        font-family: $tertiary-font
+
+        p
+            color: $secondary-color-light
+
+        strong
+            color: $primary-color
+
+    a
+        color: $secondary-color-fade
+        font-weight: 900

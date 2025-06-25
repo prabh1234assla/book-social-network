@@ -11,6 +11,7 @@ const httpLink = {
   listStudents: apiUrl + "user/students", 
   listFaculty: apiUrl + "user/faculty",
   createFees: apiUrl + "fee/",
+  getMyself: apiUrl + "user/me",
   listFees: apiUrl + "user/me/fees",
   createMarks: apiUrl + "marks/",
   listMarks: apiUrl + "user/me/marks",
@@ -46,6 +47,11 @@ export class HttpProviderService {
   public listAllFaculty(): Observable<any> {
     return this.webapiservice.get(httpLink.listFaculty);
   }
+
+  public getMyself(): Observable<any> {
+    return this.webapiservice.get(httpLink.getMyself);
+  }
+
 
   public createFeeTicketForStudent(jsonData: JSON): Observable<any> {
     return this.webapiservice.post(httpLink.createFees, JSON.stringify(jsonData));

@@ -1,0 +1,23 @@
+<div class="profile-container">
+    <img [src]="'assets/auxillary/profile.svg'" (mouseenter)="showCard()" alt="Profile Button" class="img" />
+
+    <div class="card" *ngIf="isVisible" (mouseleave)="hideCard()">
+        <div class="card-header">{{ username }}</div>
+
+        <div class="card-body">
+            <p><strong>Email:</strong> {{ email }}</p>
+            <p><strong>Role:</strong> {{ role }}</p>
+
+            <ng-container *ngIf="role === 'STUDENT'">
+                <p><strong>Semester:</strong> {{ currentSemester }}</p>
+                <p><strong>isSemesterRegistrationDone:</strong> {{ studentEnrollmentStatus ? 'Done' : 'Pending' }}</p>
+            </ng-container>
+        </div>
+
+        <div class="card-footer">
+            <a [routerLink]="homePage">GO TO HOME</a>
+            <br />
+            <a routerLink="/register">LOGOUT SESSION</a>
+        </div>
+    </div>
+</div>
