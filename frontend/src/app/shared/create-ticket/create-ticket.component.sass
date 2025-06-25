@@ -11,9 +11,39 @@
     width: 100vw
     display: flex
     justify-content: center
+    position: relative
     align-items: center
     background-color: $secondary-color-hard
     @extend .monda-font
+    
+    .img
+        height: 6%
+        top: 0%
+        left: 0%
+        position: absolute
+        transition: all 1s
+
+        &:hover
+            scale: 1.5
+
+        &:active
+            opacity: 0%
+            scale: 3
+
+    > div
+        width: 25%
+        height: fit-content
+        overflow: hidden
+        position: relative
+        margin: 1%
+        
+        .txt
+            font-family: $tertiary-font
+            margin: 1%
+            position: absolute
+
+        .ticket-image
+            width: 100%
 
     form    
         button

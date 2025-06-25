@@ -12,6 +12,9 @@ export class CreateTicketComponent implements OnInit {
   @Input() inputsToTake: Array<string> = []
   @Input() creatingTicketOf: string = ''
   @Input() submitMessage: string = ''
+  w1: string = ''
+  w2: string = ''
+  imagePath: string = ''
   
   //@ts-ignore
   createTicketForm: FormGroup;
@@ -19,6 +22,12 @@ export class CreateTicketComponent implements OnInit {
   constructor(private fb: FormBuilder, private httpProvider: HttpProviderService, private router: Router) { }
 
   ngOnInit(): void {
+    this.w1 = "Create"
+    this.w2 = this.creatingTicketOf[0].toUpperCase() + this.creatingTicketOf.slice(1)
+    this.imagePath = "assets/create/create" + this.creatingTicketOf[0].toUpperCase() + this.creatingTicketOf.slice(1) + ".jpg";
+
+    console.log(this.imagePath)
+
     let json: Record<string, Array<any>> = {};
 
     this.inputsToTake.forEach((item, _) => {

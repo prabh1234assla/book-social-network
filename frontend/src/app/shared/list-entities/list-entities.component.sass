@@ -1,19 +1,49 @@
-html, body
-    height: 100vh
+@import 'variables'
+
+.tablewrapper
     width: 100vw
+    height: 100vh
     display: flex
+    position: relative
+    flex-direction: column
     justify-content: center
-
-.listEntities
+    overflow: hidden scroll
+    align-items: center
+    background-color: $primary-color     
     
-    table
-    width: 100%
-    border-collapse: collapse
+    .img
+        height: 6%
+        top: 0%
+        left: 0%
+        position: absolute
+        transition: all 1s
 
-    th, td
-    padding: 8px
-    border: 1px solid #ccc
+        &:hover
+            scale: 1.5
+
+        &:active
+            opacity: 0%
+            scale: 3
+
+    h1
+        font-family: $tertiary-font
+        color: $secondary-color-hard
+        margin: 10px
+
+table
+    width: 60%
+    font-family: $primary-font
+    font-size: 1.2em
+    border-collapse: collapse
+    color: $secondary-color-hard
+
+th
+    border: 1px solid $secondary-color-fade 
     text-align: left
 
-    thead
-    background-color: #f5f5f5
+td
+    border: 1px solid $secondary-color-fade 
+    text-align: left
+
+tr:nth-child(even)
+    background-color: $secondary-color-fade 

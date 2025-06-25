@@ -10,14 +10,26 @@ import { CreateEnrollmentsComponent } from './pages/create-enrollments/create-en
 import { CreateMarksComponent } from './pages/create-marks/create-marks.component';
 import { CreateFeesComponent } from './pages/create-fees/create-fees.component';
 import { CreateCoursesComponent } from './pages/create-courses/create-courses.component';
-import { StudentComponent as listAdminStudentComponent } from './pages/listadminEntities/student/student.component';
+import { ListEntitiesComponent } from './shared/list-entities/list-entities.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'register', pathMatch: 'full'},
   { path: 'admin', component: AdminComponent },
-  { path: 'admin/listStudents', component: listAdminStudentComponent },
-  { path: 'student', component: StudentComponent },
+  { path: 'admin/listStudents', component: ListEntitiesComponent },
+  { path: 'admin/listFaculty', component: ListEntitiesComponent },
+  { path: 'admin/listCourses', component: ListEntitiesComponent },
+  { path: 'admin/listEnrollments', component: ListEntitiesComponent },
   { path: 'faculty', component: FacultyComponent },
+  { path: 'faculty/listFaculty', component: ListEntitiesComponent },
+  { path: 'faculty/listStudents', component: ListEntitiesComponent },
+  { path: 'faculty/listCourses', component: ListEntitiesComponent },
+  { path: 'faculty/listEnrollments', component: ListEntitiesComponent },
+  { path: 'student', component: StudentComponent },
+  { path: 'student/listFaculty', component: ListEntitiesComponent },
+  { path: 'student/listCourses', component: ListEntitiesComponent },
+  { path: 'student/listEnrollments', component: ListEntitiesComponent },
+  { path: 'student/listFees', component: ListEntitiesComponent },
+  { path: 'student/listMarks', component: ListEntitiesComponent },
   { path: 'createEnrollments', component: CreateEnrollmentsComponent },
   { path: 'createMarks', component: CreateMarksComponent },
   { path: 'createFees', component: CreateFeesComponent },

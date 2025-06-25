@@ -1,17 +1,16 @@
-<div class="listEntities">
-=
+<div class="tablewrapper">
+
+  <img [src]="'assets/auxillary/profile.svg'" alt="Profile Button" class="img" />
+
+    <h1> {{ title }} </h1>
     <table>
-        <thead>
-            <tr>
-                <th *ngFor="let header of columnHeaders">{{ header }}</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let row of rowEntries">
-                <td *ngFor="let header of columnHeaders">
-                    {{ row[header.toLowerCase()] }}
-                </td>
-            </tr>
-        </tbody>
+        <tr>
+            <th *ngFor="let header of columnHeaders">{{ header }}</th>
+        </tr>
+        <tr *ngFor="let row of rowEntries">
+            <td *ngFor="let header of columnHeaders">
+                {{ row[header] }}
+            </td>
+        </tr>
     </table>
 </div>

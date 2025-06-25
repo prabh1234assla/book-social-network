@@ -35,6 +35,7 @@ import webly.campusSphere.backend.DTOs.frontendDisplayDTOs.student.marksDTO;
 import webly.campusSphere.backend.Models.Fee;
 import webly.campusSphere.backend.Models.User;
 import webly.campusSphere.backend.Models.BaseModel.UserModel;
+import webly.campusSphere.backend.Models.BaseModel.meResponseDTO;
 import webly.campusSphere.backend.Models.Utils.UserRole;
 import webly.campusSphere.backend.Service.CourseService;
 import webly.campusSphere.backend.Service.FeeService;
@@ -63,10 +64,10 @@ public class UserController {
 
     // get yourself
     @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserDetails> authenticatedUser() {
+    public ResponseEntity<meResponseDTO> authenticatedUser() {
         User currentUser = getAuthenticatedUser();
 
-        return ResponseEntity.ok(UserDetails.generaDto(currentUser));
+        return ResponseEntity.ok(meResponseDTO.generateDTO(currentUser));
     }
 
     // get all courses under you

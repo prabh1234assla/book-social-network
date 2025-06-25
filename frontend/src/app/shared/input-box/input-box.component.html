@@ -6,6 +6,6 @@
     </label>
     <div
     *ngIf="createTicketForm.get(input)?.invalid && (createTicketForm.get(input)?.dirty || createTicketForm.get(input)?.touched)">
-    {{ input }} input given is wrong
+    No Input Is Being Given. {{ input }} is a Required Field.
     </div>
 </div>

@@ -1,4 +1,14 @@
 <div class="createTicketForm">
+    
+    <img [src]="'assets/auxillary/profile.svg'" alt="Profile Button" class="img" />
+    
+    <div class="Image-Container">
+        <div class="txt">
+            <h1>{{w1}}</h1>
+            <h2>{{w2}}</h2>
+        </div>
+        <img [src]="imagePath" alt="Create Ticket Image" class="ticket-image" />
+    </div>
 
     <form [formGroup]="createTicketForm" (ngSubmit)="onSubmit(createTicketForm)">
         
